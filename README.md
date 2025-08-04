@@ -514,12 +514,42 @@
     </div>
 
     <script>
+        // قاعدة بيانات مشتركة عبر الخادم (محاكاة)
+        // في الواقع هذه ستكون قاعدة بيانات حقيقية
+        window.sharedDatabase = window.sharedDatabase || {
+            applicants: [
+                // بيانات تجريبية للتوضيح
+                {
+                    id: 1,
+                    jobTitle: 'HSBC Call Center',
+                    name: 'أحمد محمد علي',
+                    email: 'ahmed.mohamed@email.com',
+                    phone: '01234567890',
+                    photo: 'ahmed_photo.jpg',
+                    experience: 'خبرة 3 سنوات في خدمة العملاء والمبيعات',
+                    audioRecording: 'تسجيل صوتي مرفق',
+                    status: 'pending',
+                    appliedAt: new Date().toLocaleString('ar-EG')
+                },
+                {
+                    id: 2,
+                    jobTitle: 'Concentrix Customer Service',
+                    name: 'فاطمة سمير',
+                    email: 'fatma.samir@email.com',
+                    phone: '01098765432',
+                    photo: null,
+                    experience: 'خريجة جديدة، إنجليزية ممتازة',
+                    audioRecording: 'تسجيل صوتي مرفق',
+                    status: 'approved',
+                    appliedAt: new Date().toLocaleString('ar-EG')
+                }
+            ]
+        };
+
+        // ربط البيانات المحلية بقاعدة البيانات المشتركة
+        let applicants = window.sharedDatabase.applicants;
         // بيانات التطبيق
         let currentJob = '';
-        // استخدام قاعدة بيانات مشتركة بدلاً من localStorage
-        let applicants = [
-            // بيانات تجريبية لتوضيح النظام
-        ];
         let isRecording = false;
         let mediaRecorder;
         let audioChunks = [];
@@ -652,6 +682,11 @@
 
             // إضافة المتقدم للقائمة المشتركة
             applicants.push(formData);
+            // تحديث قاعدة البيانات المشتركة
+            window.sharedDatabase.applicants = applicants;
+            
+            // محاكاة إرسال البيانات للخادم
+            console.log('تم حفظ البيانات في قاعدة البيانات المشتركة:', formData);
             
             alert('تم إرسال طلب التقديم بنجاح! سيتم مراجعته والرد عليك قريباً.');
             closeModal();
@@ -746,6 +781,8 @@
             const applicantIndex = applicants.findIndex(app => app.id === applicantId);
             if (applicantIndex !== -1) {
                 applicants[applicantIndex].status = newStatus;
+                // تحديث قاعدة البيانات المشتركة
+                window.sharedDatabase.applicants = applicants;
                 loadApplicants();
                 
                 const statusText = newStatus === 'approved' ? 'تم قبول' : 'تم رفض';
@@ -757,6 +794,8 @@
         function deleteApplicant(applicantId) {
             if (confirm('هل أنت متأكد من حذف هذا المتقدم؟')) {
                 applicants = applicants.filter(app => app.id !== applicantId);
+                // تحديث قاعدة البيانات المشتركة
+                window.sharedDatabase.applicants = applicants;
                 loadApplicants();
                 alert('تم حذف المتقدم بنجاح');
             }
@@ -769,11 +808,30 @@
             }
         });
 
+        // تحديث البيانات بشكل دوري من قاعدة البيانات المشتركة
+        function refreshData() {
+            applicants = window.sharedDatabase.applicants;
+            if (document.getElementById('admin').classList.contains('active')) {
+                loadApplicants();
+            }
+        }
+
+        // تحديث البيانات كل 3 ثوانٍ للحصول على أحدث البيانات
+        setInterval(refreshData, 3000);
+
         // تحميل البيانات عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', function() {
-            // البيانات متاحة مباشرة في الذاكرة المشتركة
-            console.log('الموقع جاهز للاستخدام');
+            // تحديث البيانات من قاعدة البيانات المشتركة
+            refreshData();
+            console.log('الموقع جاهز للاستخدام - البيانات متزامنة');
         });
     </script>
+
+    <!-- Footer -->
+    <footer style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); color: white; text-align: center; padding: 20px; margin-top: 50px; border-radius: 15px;">
+        <p style="margin: 0; font-size: 14px; opacity: 0.8;">
+            إنشاء المهندس أحمد التركي
+        </p>
+    </footer>
 </body>
-</html>    
+</html>
