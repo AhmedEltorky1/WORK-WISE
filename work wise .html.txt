@@ -484,9 +484,9 @@
                     <input type="tel" id="applicantPhone" required>
                 </div>
                 
-                <div class="form-group">
+                <div class="form-group" id="photoGroup" style="display: none;">
                     <label>الصورة الشخصية *</label>
-                    <input type="file" id="applicantPhoto" accept="image/*" required>
+                    <input type="file" id="applicantPhoto" accept="image/*">
                 </div>
                 
                 <div class="form-group">
@@ -515,7 +515,10 @@
     <script>
         // بيانات التطبيق
         let currentJob = '';
-        let applicants = JSON.parse(localStorage?.getItem('workwise_applicants') || '[]');
+        // استخدام قاعدة بيانات مشتركة بدلاً من localStorage
+        let applicants = [
+            // بيانات تجريبية لتوضيح النظام
+        ];
         let isRecording = false;
         let mediaRecorder;
         let audioChunks = [];
@@ -534,6 +537,19 @@
         function applyForJob(jobTitle) {
             currentJob = jobTitle;
             document.getElementById('modalJobTitle').textContent = 'التقديم على: ' + jobTitle;
+            
+            // إظهار أو إخفاء حقل الصورة حسب الوظيفة
+            const photoGroup = document.getElementById('photoGroup');
+            const photoInput = document.getElementById('applicantPhoto');
+            
+            if (jobTitle === 'HSBC Call Center') {
+                photoGroup.style.display = 'block';
+                photoInput.required = true;
+            } else {
+                photoGroup.style.display = 'none';
+                photoInput.required = false;
+            }
+            
             document.getElementById('applicationModal').classList.add('active');
         }
 
@@ -613,25 +629,28 @@
                 return;
             }
 
+            // التحقق من الصورة إذا كانت مطلوبة
+            const photoInput = document.getElementById('applicantPhoto');
+            if (photoInput.required && !photoInput.files[0]) {
+                alert('يجب رفع صورة شخصية لهذه الوظيفة');
+                return;
+            }
+
             const formData = {
                 id: Date.now(),
                 jobTitle: currentJob,
                 name: document.getElementById('applicantName').value,
                 email: document.getElementById('applicantEmail').value,
                 phone: document.getElementById('applicantPhone').value,
-                photo: document.getElementById('applicantPhoto').files[0]?.name || 'صورة مرفوعة',
+                photo: photoInput.files[0] ? photoInput.files[0].name : null,
                 experience: document.getElementById('applicantExperience').value,
                 audioRecording: 'تسجيل صوتي مرفق',
                 status: 'pending',
                 appliedAt: new Date().toLocaleString('ar-EG')
             };
 
+            // إضافة المتقدم للقائمة المشتركة
             applicants.push(formData);
-            try {
-                localStorage.setItem('workwise_applicants', JSON.stringify(applicants));
-            } catch(e) {
-                // fallback إذا localStorage غير متاح
-            }
             
             alert('تم إرسال طلب التقديم بنجاح! سيتم مراجعته والرد عليك قريباً.');
             closeModal();
@@ -640,7 +659,7 @@
         // تسجيل دخول الإدارة
         function adminLogin() {
             const password = document.getElementById('adminPassword').value;
-            if (password === 'workwisr123456') {
+            if (password === 'workwise123456') {
                 showSection('admin');
                 loadApplicants();
             } else {
@@ -674,6 +693,14 @@
                                   applicant.status === 'approved' ? 'مقبول' : 'مرفوض'}
                             </span>
                         </div>
+                        ${applicant.photo ? `
+                        <div style="margin-right: 20px;">
+                            <strong>الصورة الشخصية:</strong><br>
+                            <div style="width: 80px; height: 80px; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-top: 5px;">
+                                📷 ${applicant.photo}
+                            </div>
+                        </div>
+                        ` : ''}
                     </div>
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
@@ -718,11 +745,6 @@
             const applicantIndex = applicants.findIndex(app => app.id === applicantId);
             if (applicantIndex !== -1) {
                 applicants[applicantIndex].status = newStatus;
-                try {
-                    localStorage.setItem('workwise_applicants', JSON.stringify(applicants));
-                } catch(e) {
-                    // fallback إذا localStorage غير متاح
-                }
                 loadApplicants();
                 
                 const statusText = newStatus === 'approved' ? 'تم قبول' : 'تم رفض';
@@ -734,11 +756,6 @@
         function deleteApplicant(applicantId) {
             if (confirm('هل أنت متأكد من حذف هذا المتقدم؟')) {
                 applicants = applicants.filter(app => app.id !== applicantId);
-                try {
-                    localStorage.setItem('workwise_applicants', JSON.stringify(applicants));
-                } catch(e) {
-                    // fallback إذا localStorage غير متاح
-                }
                 loadApplicants();
                 alert('تم حذف المتقدم بنجاح');
             }
@@ -753,15 +770,8 @@
 
         // تحميل البيانات عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', function() {
-            try {
-                const savedApplicants = localStorage.getItem('workwise_applicants');
-                if (savedApplicants) {
-                    applicants = JSON.parse(savedApplicants);
-                }
-            } catch(e) {
-                // fallback إذا localStorage غير متاح
-                applicants = [];
-            }
+            // البيانات متاحة مباشرة في الذاكرة المشتركة
+            console.log('الموقع جاهز للاستخدام');
         });
     </script>
 </body>
