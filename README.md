@@ -2,2227 +2,766 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work Wise - منصة التوظيف الذكية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>WorkWise - منصة التوظيف</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
         }
-        
-        :root {
-            --primary: #2563eb;
-            --secondary: #1e40af;
-            --accent: #f59e0b;
-            --light: #f8fafc;
-            --dark: #1e293b;
-            --gray: #64748b;
-            --success: #10b981;
-            --concentrix: #ff6b6b;
-            --hsbc: #4d96ff;
-            --volumex: #6bcb77;
-            --real-estate: #9b5de5;
-            --staff-bg: #f0f7ff;
-        }
-        
+
         body {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            color: var(--dark);
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
-            padding: 20px;
-            transition: background 0.5s ease;
+            color: #333;
         }
-        
+
+        .logo-bg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.1;
+            z-index: -1;
+            width: 400px;
+            height: 400px;
+            background: url('data:image/svg+xml,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20 20 L40 20 L50 40 L60 20 L80 20 L80 80 L60 80 L60 50 L50 70 L40 50 L40 80 L20 80 Z" fill="white"/><polygon points="85,20 95,20 95,80 85,80" fill="white"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 20px;
             position: relative;
+            z-index: 1;
         }
-        
-        /* شريط التنقل */
-        .navbar {
-            background: white;
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
             border-radius: 15px;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             margin-bottom: 30px;
-            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
-        
+
         .logo {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 15px;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2a5298;
+            margin-bottom: 10px;
         }
-        
-        .logo h1 {
-            font-size: 1.8rem;
-            color: var(--secondary);
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .logo i {
-            font-size: 2rem;
-            color: var(--accent);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-        
-        .nav-links a {
-            color: var(--dark);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            padding: 8px 15px;
-            border-radius: 8px;
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: #2a5298;
+            color: white;
+            border-radius: 10px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            font-size: 24px;
         }
-        
-        .nav-links a:hover {
-            background: var(--light);
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
         }
-        
-        .nav-links a.active {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .staff-login-btn {
-            padding: 10px 25px;
-            background: var(--accent);
-            color: var(--dark);
+
+        .btn {
+            padding: 12px 25px;
             border: none;
             border-radius: 8px;
-            font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 6px rgba(245, 158, 11, 0.3);
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
-        
-        .staff-login-btn:hover {
-            background: #e69008;
+
+        .btn-primary {
+            background: linear-gradient(45deg, #2a5298, #1e3c72);
+            color: white;
+        }
+
+        .btn-primary:hover {
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(42, 82, 152, 0.4);
         }
-        
-        /* قسم الرئيسية */
-        .home-section {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-            padding: 40px;
-            margin-bottom: 40px;
-            animation: fadeIn 0.8s ease;
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: #2a5298;
+            border: 2px solid #2a5298;
         }
-        
+
+        .btn-secondary:hover {
+            background: #2a5298;
+            color: white;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
-        header {
-            text-align: center;
-            padding: 30px 0;
-            margin-bottom: 40px;
-        }
-        
-        header h1 {
-            font-size: 3.5rem;
-            color: var(--secondary);
-            margin-bottom: 10px;
+
+        .job-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
             position: relative;
-            display: inline-block;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            overflow: hidden;
         }
-        
-        header h1::after {
+
+        .job-card::before {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 5px;
-            background: var(--accent);
-            border-radius: 10px;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(45deg, #2a5298, #1e3c72);
         }
-        
-        header p {
-            font-size: 1.2rem;
-            color: var(--gray);
-            max-width: 700px;
-            margin: 20px auto;
-            line-height: 1.8;
-        }
-        
-        /* تصنيف الوظائف */
-        .categories {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-        
-        .category-btn {
-            padding: 12px 25px;
-            background: white;
-            border: 2px solid var(--primary);
-            border-radius: 50px;
-            font-weight: bold;
-            color: var(--primary);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .category-btn:hover, .category-btn.active {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
-        }
-        
-        /* قائمة الوظائف */
-        .jobs-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-        
-        .job-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease;
-            position: relative;
-            border-top: 5px solid var(--primary);
-        }
-        
-        .job-card.concentrix {
-            border-top-color: var(--concentrix);
-        }
-        
-        .job-card.hsbc {
-            border-top-color: var(--hsbc);
-        }
-        
-        .job-card.volumex {
-            border-top-color: var(--volumex);
-        }
-        
-        .job-card.real-estate {
-            border-top-color: var(--real-estate);
-        }
-        
+
         .job-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(42, 82, 152, 0.2);
         }
-        
-        .job-header {
-            background: var(--primary);
-            color: white;
-            padding: 20px;
-            position: relative;
-        }
-        
-        .job-header.concentrix {
-            background: var(--concentrix);
-        }
-        
-        .job-header.hsbc {
-            background: var(--hsbc);
-        }
-        
-        .job-header.volumex {
-            background: var(--volumex);
-        }
-        
-        .job-header.real-estate {
-            background: var(--real-estate);
-        }
-        
-        .job-header h3 {
+
+        .job-title {
+            color: #2a5298;
             font-size: 1.5rem;
-            margin-bottom: 5px;
-        }
-        
-        .job-type {
-            background: var(--accent);
-            color: var(--dark);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            position: absolute;
-            top: 20px;
-            left: 20px;
             font-weight: bold;
-        }
-        
-        .job-body {
-            padding: 25px;
-        }
-        
-        .job-details {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            border-bottom: 1px dashed #e2e8f0;
-            padding-bottom: 20px;
-        }
-        
-        .detail {
-            text-align: center;
-            flex: 1;
-        }
-        
-        .detail i {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-        
-        .detail span {
-            display: block;
-            font-weight: bold;
-            margin-top: 5px;
-            font-size: 0.9rem;
-        }
-        
-        .requirements {
-            background: #f8fafc;
-            padding: 15px;
-            border-radius: 10px;
             margin-bottom: 15px;
-            border-left: 3px solid var(--primary);
         }
-        
-        .requirements h4 {
-            margin-bottom: 10px;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+
+        .job-details {
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #555;
         }
-        
-        .requirements ul {
-            padding-right: 20px;
-        }
-        
-        .requirements li {
-            margin-bottom: 8px;
-            position: relative;
-            padding-right: 15px;
-        }
-        
-        .requirements li::before {
-            content: "•";
-            color: var(--primary);
-            font-weight: bold;
-            position: absolute;
-            right: 0;
-        }
-        
-        .select-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background: var(--success);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
-        }
-        
-        .select-btn:hover {
-            background: #0da271;
-            transform: translateY(-2px);
-        }
-        
-        /* قسم التقديم */
-        .application-section {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-            padding: 40px;
-            margin: 50px 0;
-            display: none;
-            animation: fadeIn 0.8s ease;
-        }
-        
-        .application-section h2 {
-            text-align: center;
-            color: var(--secondary);
-            margin-bottom: 30px;
-            font-size: 2.2rem;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .application-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
-        
+
         .form-group {
             margin-bottom: 20px;
         }
-        
-        .form-group.full {
-            grid-column: span 2;
-        }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: #2a5298;
         }
-        
-        .form-group input, .form-group textarea, .form-group select {
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 1rem;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
             transition: border-color 0.3s ease;
         }
-        
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-            border-color: var(--primary);
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+            border-color: #2a5298;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
         }
-        
-        .voice-recorder {
-            background: #f1f5f9;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 20px 0;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
-        }
-        
-        .recorder-header {
+
+        .record-controls {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .recorder-title {
-            font-size: 1.3rem;
-            color: var(--secondary);
-            display: flex;
-            align-items: center;
             gap: 10px;
-        }
-        
-        .recorder-controls {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .recorder-btn {
-            padding: 12px 20px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
             align-items: center;
-            gap: 8px;
-            transition: background 0.3s ease;
+            margin-top: 10px;
         }
-        
-        .recorder-btn:disabled {
-            background: var(--gray);
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-        
-        .recorder-btn.stop {
-            background: #ef4444;
-        }
-        
-        .recorder-btn.delete {
-            background: #9ca3af;
-        }
-        
-        .recorder-btn.stop:hover {
-            background: #dc2626;
-        }
-        
-        .recorder-btn.delete:hover {
-            background: #6b7280;
-        }
-        
-        .recorder-btn:hover {
-            background: var(--secondary);
-            transform: translateY(-2px);
-        }
-        
-        .timer {
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--dark);
-            margin: 15px 0;
-        }
-        
-        .recording-visualizer {
-            height: 80px;
-            background: #e2e8f0;
-            border-radius: 10px;
-            margin: 20px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            padding: 0 20px;
-            display: none;
-        }
-        
-        .bar {
-            width: 8px;
-            background: var(--primary);
-            border-radius: 10px;
-            height: 30px;
-            animation: pulse 1.2s infinite ease-in-out;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scaleY(1); }
-            50% { transform: scaleY(0.4); }
-        }
-        
-        .audio-playback {
-            width: 100%;
-            margin: 20px 0;
-            display: none;
-        }
-        
-        .submit-btn {
-            grid-column: span 2;
-            padding: 18px;
-            background: var(--secondary);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            margin-top: 20px;
-            box-shadow: 0 4px 6px rgba(30, 64, 175, 0.3);
-        }
-        
-        .submit-btn:hover {
-            background: var(--primary);
-            transform: translateY(-2px);
-        }
-        
-        /* قسم الموظفين */
-        .staff-section {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-            padding: 40px;
-            margin: 50px 0;
-            text-align: center;
-            display: none;
-            animation: fadeIn 0.8s ease;
-        }
-        
-        .staff-section h2 {
-            color: var(--secondary);
-            margin-bottom: 20px;
-            font-size: 2rem;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .staff-section p {
-            color: var(--gray);
-            max-width: 600px;
-            margin: 0 auto 30px;
-            line-height: 1.7;
-        }
-        
-        .login-form {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        
-        .password-input {
-            position: relative;
-            margin-bottom: 25px;
-        }
-        
-        .password-input input {
-            width: 100%;
-            padding: 16px 50px 16px 20px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            transition: border-color 0.3s ease;
-        }
-        
-        .password-input input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
-        }
-        
-        .password-toggle {
-            position: absolute;
-            top: 50%;
-            right: 15px;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: var(--gray);
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-        }
-        
-        .staff-btn {
-            padding: 16px 40px;
-            background: var(--accent);
-            color: var(--dark);
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            box-shadow: 0 4px 6px rgba(245, 158, 11, 0.3);
-        }
-        
-        .staff-btn:hover {
-            background: #e69008;
-            transform: translateY(-2px);
-        }
-        
-        /* لوحة تحكم الموظفين */
-        .dashboard-section {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-            padding: 40px;
-            margin: 50px 0;
-            display: none;
-            animation: fadeIn 0.8s ease;
-        }
-        
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        
-        .dashboard-header h2 {
-            font-size: 1.8rem;
-            color: var(--secondary);
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .stats-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .stat-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--primary);
-            transition: transform 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-        
-        .stat-card.concentrix {
-            border-top-color: var(--concentrix);
-        }
-        
-        .stat-card.hsbc {
-            border-top-color: var(--hsbc);
-        }
-        
-        .stat-card.volumex {
-            border-top-color: var(--volumex);
-        }
-        
-        .stat-card.real-estate {
-            border-top-color: var(--real-estate);
-        }
-        
-        .stat-card h3 {
-            font-size: 1.1rem;
-            color: var(--gray);
-            margin-bottom: 15px;
-        }
-        
-        .stat-card .value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--dark);
-        }
-        
-        /* جدول المتقدمين */
-        .applicants-section {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            padding: 25px;
-            margin-top: 30px;
-        }
-        
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-        
-        .section-header h3 {
-            font-size: 1.5rem;
-            color: var(--secondary);
-        }
-        
-        .controls {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .filter-btn, .export-btn {
-            padding: 10px 20px;
-            background: var(--staff-bg);
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.3s ease;
-        }
-        
-        .filter-btn:hover, .export-btn:hover {
-            background: #e2e8f0;
-        }
-        
-        .search-box {
-            position: relative;
-            width: 300px;
-        }
-        
-        .search-box input {
-            width: 100%;
-            padding: 12px 20px 12px 45px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-        
-        .search-box i {
-            position: absolute;
-            top: 50%;
-            right: 15px;
-            transform: translateY(-50%);
-            color: var(--gray);
-        }
-        
-        /* جدول المتقدمين */
-        .applicants-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        
-        .applicants-table th {
-            background: var(--staff-bg);
-            padding: 15px;
-            text-align: right;
-            font-weight: 700;
-            color: var(--dark);
-            border-bottom: 2px solid #e2e8f0;
-        }
-        
-        .applicants-table td {
-            padding: 15px;
-            border-bottom: 1px solid #e2e8f0;
-            color: var(--gray);
-        }
-        
-        .applicants-table tr:hover {
-            background: #f8fafc;
-        }
-        
-        .applicant-name {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-weight: 600;
-            color: var(--dark);
-        }
-        
-        .applicant-name img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        
-        .status {
+
+        .record-btn {
             padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: inline-block;
-        }
-        
-        .status.pending {
-            background: #fffbeb;
-            color: #f59e0b;
-        }
-        
-        .status.reviewed {
-            background: #ecfdf5;
-            color: #10b981;
-        }
-        
-        .status.accepted {
-            background: #d1fae5;
-            color: #065f46;
-        }
-        
-        .status.rejected {
-            background: #fef2f2;
-            color: #ef4444;
-        }
-        
-        .action-btn {
-            padding: 8px 15px;
-            background: var(--staff-bg);
             border: none;
-            border-radius: 8px;
-            font-weight: 600;
+            border-radius: 6px;
             cursor: pointer;
-            transition: background 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            font-size: 14px;
+            transition: all 0.3s ease;
         }
-        
-        .action-btn:hover {
-            background: #e2e8f0;
+
+        .record-btn.start {
+            background: #28a745;
+            color: white;
         }
-        
-        /* تفاصيل المتقدم */
-        .applicant-detail {
-            background: white;
+
+        .record-btn.stop {
+            background: #dc3545;
+            color: white;
+        }
+
+        .admin-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
             padding: 30px;
-            margin-top: 30px;
-            display: none;
-            animation: fadeIn 0.8s ease;
-        }
-        
-        .detail-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        
-        .detail-header h3 {
-            font-size: 1.8rem;
-            color: var(--secondary);
-        }
-        
-        .close-btn {
-            background: var(--staff-bg);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: background 0.3s ease;
-        }
-        
-        .close-btn:hover {
-            background: #e2e8f0;
-        }
-        
-        .applicant-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-        
-        .info-card {
-            background: var(--staff-bg);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-        }
-        
-        .info-card h4 {
-            margin-bottom: 15px;
-            color: var(--secondary);
-            padding-bottom: 10px;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .info-row {
-            display: flex;
-            margin-bottom: 15px;
-        }
-        
-        .info-label {
-            font-weight: 600;
-            color: var(--dark);
-            width: 150px;
-        }
-        
-        .info-value {
-            flex: 1;
-            color: var(--gray);
-        }
-        
-        /* مشغل الصوت */
-        .voice-player {
-            background: var(--staff-bg);
-            border-radius: 15px;
-            padding: 25px;
             margin-top: 20px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
         }
-        
-        .player-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+
+        .applicant-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        
-        .player-header h4 {
-            font-size: 1.3rem;
-            color: var(--secondary);
+
+        .applicant-actions {
             display: flex;
-            align-items: center;
             gap: 10px;
-        }
-        
-        .audio-controls {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .audio-player {
-            width: 100%;
             margin-top: 15px;
         }
-        
-        .transcript {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .transcript h5 {
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-        
-        .transcript p {
-            line-height: 1.8;
-            color: var(--gray);
-        }
-        
-        footer {
-            text-align: center;
-            padding: 30px 0;
-            color: var(--gray);
-            border-top: 1px solid #e2e8f0;
-            margin-top: 50px;
-        }
-        
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            background: var(--success);
+
+        .btn-success {
+            background: #28a745;
             color: white;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .login-form {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
             display: none;
+            justify-content: center;
+            align-items: center;
             z-index: 1000;
         }
-        
-        .about-section {
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-            padding: 40px;
-            margin: 50px 0;
-            display: none;
-            animation: fadeIn 0.8s ease;
-        }
-        
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .about-content h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: var(--secondary);
-        }
-        
-        .ceo-info {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 40px;
-            background: var(--staff-bg);
-            padding: 20px;
+            padding: 30px;
             border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
         }
-        
-        .ceo-photo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 3rem;
+
+        .audio-player {
+            width: 100%;
+            margin-top: 10px;
         }
-        
-        .ceo-details h3 {
-            margin-bottom: 10px;
-            font-size: 1.8rem;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .social-links a {
+
+        .status-badge {
             display: inline-block;
-            padding: 10px 20px;
-            background: var(--primary);
-            color: white;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .social-links a:hover {
-            background: var(--secondary);
-            transform: translateY(-3px);
-        }
-        
-        .company-info {
-            text-align: center;
-            line-height: 1.8;
-            margin-bottom: 30px;
-        }
-        
-        /* الرسومات البيانية */
-        .chart-container {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .chart-header h3 {
-            font-size: 1.5rem;
-            color: var(--secondary);
-        }
-        
-        .chart-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        
-        .chart-box {
-            flex: 1;
-            min-width: 300px;
-            background: #f8fafc;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-        }
-        
-        .chart-title {
-            text-align: center;
-            margin-bottom: 15px;
-            font-weight: 600;
-            color: var(--dark);
-        }
-        
-        .chart {
-            height: 250px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-around;
-            gap: 10px;
-            padding: 10px;
-        }
-        
-        .bar-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100%;
-        }
-        
-        .bar-label {
-            margin-top: 5px;
-            font-size: 0.9rem;
-        }
-        
-        .chart-bar {
-            width: 40px;
-            background: var(--primary);
-            border-radius: 5px 5px 0 0;
-            transition: height 0.5s ease;
-        }
-        
-        .legend {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .legend-color {
-            width: 15px;
-            height: 15px;
-            border-radius: 3px;
-        }
-        
-        /* تصفية الشركات */
-        .company-filter {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .filter-option {
-            padding: 8px 15px;
-            background: #e2e8f0;
+            padding: 4px 12px;
             border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
         }
-        
-        .filter-option.active {
-            background: var(--primary);
-            color: white;
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
         }
-        
+
+        .status-approved {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
         @media (max-width: 768px) {
-            .application-form {
-                grid-template-columns: 1fr;
-            }
-            
-            .form-group.full {
-                grid-column: span 1;
-            }
-            
-            .submit-btn {
-                grid-column: span 1;
-            }
-            
-            .jobs-container {
-                grid-template-columns: 1fr;
-            }
-            
-            header h1 {
-                font-size: 2.5rem;
-            }
-            
-            .navbar {
+            .nav-buttons {
                 flex-direction: column;
-                gap: 15px;
+                align-items: center;
             }
             
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .dashboard-header {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-            }
-            
-            .section-header {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-            }
-            
-            .controls {
-                width: 100%;
-                flex-direction: column;
-            }
-            
-            .search-box {
-                width: 100%;
-            }
-            
-            .ceo-info {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .social-links {
-                justify-content: center;
-            }
-            
-            .chart-wrapper {
+            .applicant-actions {
                 flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
+    <div class="logo-bg"></div>
+    
     <div class="container">
-        <!-- شريط التنقل -->
-        <nav class="navbar">
+        <header class="header">
             <div class="logo">
-                <i class="fas fa-briefcase"></i>
-                <h1>Work Wise</h1>
+                <div class="logo-icon">W</div>
+                WorkWise
             </div>
+            <p style="color: #666; font-size: 1.1rem;">منصتك المتخصصة للعثور على الوظيفة المثالية</p>
             
-            <div class="nav-links">
-                <a href="#" class="active" id="homeLink"><i class="fas fa-home"></i> الرئيسية</a>
-                <a href="#" id="jobsLink"><i class="fas fa-briefcase"></i> الوظائف</a>
-                <a href="#" id="applyLink"><i class="fas fa-file-alt"></i> التقديم</a>
-                <a href="#" id="aboutLink"><i class="fas fa-info-circle"></i> عنا</a>
+            <div class="nav-buttons">
+                <button class="btn btn-primary" onclick="showSection('jobs')">الوظائف المتاحة</button>
+                <button class="btn btn-secondary" onclick="showSection('login')">لوحة الموظفين</button>
             </div>
+        </header>
+
+        <!-- قسم الوظائف -->
+        <div id="jobs" class="section active">
+            <h2 style="text-align: center; color: #2a5298; margin-bottom: 30px; font-size: 2rem;">الوظائف المتاحة</h2>
             
-            <button class="staff-login-btn" id="staffLoginBtn">
-                <i class="fas fa-lock"></i> دخول الموظفين
-            </button>
-        </nav>
-        
-        <!-- قسم الرئيسية -->
-        <section id="homeSection" class="home-section">
-            <header>
-                <h1><i class="fas fa-briefcase"></i> Work Wise</h1>
-                <p>منصة التوظيف الذكية التي تساعدك في العثور على أفضل الفرص الوظيفية. تصفح مئات الوظائف في مختلف المجالات وقدم طلبك بسهولة وأمان.</p>
-            </header>
-            
-            <!-- تصنيف الوظائف -->
-            <div class="categories">
-                <button class="category-btn active">جميع الوظائف</button>
-                <button class="category-btn">وظائف كول سنتر</button>
-                <button class="category-btn">وظائف بنوك</button>
-                <button class="category-btn">دوام جزئي</button>
-                <button class="category-btn">عمل حر</button>
+            <!-- وظيفة Concentrix -->
+            <div class="job-card">
+                <h3 class="job-title">Customer Service Representatives - Concentrix</h3>
+                <div class="job-details">
+                    <p><strong>المتطلبات:</strong></p>
+                    <p>• إتقان اللغة الإنجليزية B2 أو C1</p>
+                    <p>• خريجين فقط ومصريين الجنسية</p>
+                    <p>• الراتب من 14,000 إلى 19,000 جنيه + بدل ليلي + تدريب مدفوع</p>
+                    <p>• نظام الورديات دوراني 24/7 (ليلي بشكل أساسي)</p>
+                    <p>• 9 ساعات عمل شاملة ساعة راحة</p>
+                    <p>• تأمين طبي واجتماعي إجباري</p>
+                    <p><strong>المواقع:</strong></p>
+                    <p>• 6 أكتوبر - Palm Strip, حي المتميز (أمام جامعة MUST)</p>
+                    <p>• المعادي - Victoria Square</p>
+                </div>
+                <button class="btn btn-primary" onclick="applyForJob('Concentrix Customer Service')">تقدم الآن</button>
             </div>
-            
-            <!-- قائمة الوظائف -->
-            <div class="jobs-container">
-                <!-- وظيفة Concentrix الإنجليزية -->
-                <div class="job-card concentrix">
-                    <div class="job-header concentrix">
-                        <div class="job-type">دوام كامل</div>
-                        <h3>مندوب خدمة عملاء (الإنجليزية)</h3>
-                        <p>Concentrix</p>
-                    </div>
-                    <div class="job-body">
-                        <div class="job-details">
-                            <div class="detail">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>المعادي/المهندسين</span>
-                            </div>
-                            <div class="detail">
-                                <i class="fas fa-money-bill-wave"></i>
-                                <span>14,000 - 19,000 ج.م</span>
-                            </div>
-                            <div class="detail">
-                                <i class="fas fa-clock"></i>
-                                <span>9 ساعات</span>
-                            </div>
-                        </div>
-                        
-                        <div class="requirements">
-                            <h4><i class="fas fa-list-check"></i> المتطلبات:</h4>
-                            <ul>
-                                <li>إجادة اللغة الإنجليزية (مستوى B2 أو C1)</li>
-                                <li>خبرة سابقة</li>
-                                <li>مهارات تواصل</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="requirements">
-                            <h4><i class="fas fa-gift"></i> المميزات:</h4>
-                            <ul>
-                                <li>راتب ثابت شهري</li>
-                                <li>تأمين صحي شامل</li>
-                                <li>حوافز شهرية مجزية</li>
-                                <li>بدل مواصلات (حسب المسافة)</li>
-                            </ul>
-                        </div>
-                        
-                        <button class="select-btn" data-job="مندوب خدمة عملاء (الإنجليزية)" data-company="Concentrix">
-                            <i class="fas fa-paper-plane"></i> التقديم على الوظيفة
-                        </button>
-                    </div>
+
+            <!-- وظيفة Proof Health -->
+            <div class="job-card">
+                <h3 class="job-title">Customer Service - Proof Health السعودية</h3>
+                <div class="job-details">
+                    <p><strong>طبيعة العمل:</strong> أونلاين من المنزل</p>
+                    <p><strong>المتطلبات:</strong></p>
+                    <p>• خبرة سابقة في خدمة العملاء أو المبيعات (سنتين على الأقل)</p>
+                    <p>• مهارات تواصل ممتازة وقدرة على التعامل مع العملاء</p>
+                    <p>• القدرة على العمل تحت الضغط</p>
+                    <p>• توفر لاب توب واتصال إنترنت مناسب</p>
+                    <p><strong>الراتب:</strong> 8,000 جنيه (5,000 ثابت + 3,000 تارجت شهري)</p>
+                    <p><strong>ساعات العمل:</strong> 6 أيام أسبوعياً، 9 ساعات يومياً</p>
+                    <p>• يُفضل سورية أو مصرية تتقن اللهجة الخليجية</p>
                 </div>
-                
-                <!-- وظيفة Concentrix الفرنسية -->
-                <div class="job-card concentrix">
-                    <div class="job-header concentrix">
-                        <div class="job-type">دوام كامل</div>
-                        <h3>مندوب خدمة عملاء (الفرنسية)</h3>
-                        <p>Concentrix</p>
-                    </div>
-                    <div class="job-body">
-                        <div class="job-details">
-                            <div class="detail">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>مدينه نصر</span>
-                            </div>
-                            <div class="detail">
-                                <i class="fas fa-money-bill-wave"></i>
-                                <span>26,000 - 34,000 ج.م</span>
-                            </div>
-                            <div class="detail">
-                                <i class="fas fa-clock"></i>
-                                <span>9 ساعات</span>
-                            </div>
-                        </div>
-                        
-                        <div class="requirements">
-                            <h4><i class="fas fa-list-check"></i> المتطلبات:</h4>
-                            <ul>
-                                <li>إجادة اللغة الفرنسية (B2 أو C1)</li>
-                                <li>خبرة سنة</li>
-                                <li>مهارات تواصل - خدمة عملاء</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="requirements">
-                            <h4><i class="fas fa-gift"></i> المميزات:</h4>
-                            <ul>
-                                <li>مكافأة شهرية 5,000 جنيه</li>
-                                <li>تأمين صحي شامل</li>
-                                <li>حوافز شهرية مجزية</li>
-                                <li>بدل سكن للمغتربين أو مواصلات</li>
-                            </ul>
-                        </div>
-                        
-                        <button class="select-btn" data-job="مندوب خدمة عملاء (الفرنسية)" data-company="Concentrix">
-                            <i class="fas fa-paper-plane"></i> التقديم على الوظيفة
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- وظيفة HSBC -->
-                <div class="job-card hsbc">
-                    <div class="job-header hsbc">
-                        <div class="job-type">دوام كامل</div>
-                        <h3>مندوب خدمة عملاء</h3>
-                        <p>HSBC</p>
-                    </div>
-                    <div class="job-body">
-                        <div class="job-details">
-                            <div class="detail">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>Smart Village</span>
-                            </div>
-                            <div class="detail">
-                                <i class="fas fa-money-bill-wave"></i>
-                                <span>9,000 - 15,700 ج.م</span>
-                            </div>
-                            <div class="detail">
-                                <i class="fas fa-clock"></i>
-                                <span>9 ساعات</span>
-                            </div>
-                        </div>
-                        
-                        <div class="requirements">
-                            <h4><i class="fas fa-list-check"></i> المتطلبات:</h4>
-                            <ul>
-                                <li>إجادة اللغة الإنجليزية (مستوى B2)</li>
-                                <li>سن لا يزيد عن 35 سنة</li>
-                                <li>مهارات تواصل - خدمة عملاء</li>
-                                <li>لا يشترط خبرة (سيتم تدريب المقبولين)</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="requirements">
-                            <h4><i class="fas fa-gift"></i> المميزات:</h4>
-                            <ul>
-                                <li>تأمين صحي شامل</li>
-                                <li>بدل مواصلات</li>
-                                <li>بونص سنوي</li>
-                                <li>بدل سكن</li>
-                                <li>تأمين اجتماعي</li>
-                            </ul>
-                        </div>
-                        
-                        <button class="select-btn" data-job="مندوب خدمة عملاء" data-company="HSBC">
-                            <i class="fas fa-paper-plane"></i> التقديم على الوظيفة
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- وظيفة Volume X العقارية -->
-                <div class="job-card real-estate">
-                    <div class="job-header real-estate">
-                        <div class="job-type">دوام جزئي</div>
-                        <h3>مندوب مبيعات عقارية (Acquisition)</h3>
-                        <p>Volume X</p>
-                    </div>
-                    <div class="job-body">
-                        <div class="job-details">
-                            <div class="detail">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>أي مكان</span>
-                            </div>
-                            <div class="detail">
-                                <i class="fas fa-money-bill-wave"></i>
-                                <span>$4.2/ساعة + عمولة</span>
-                            </div>
-                            <div class="detail">
-                                <i class="fas fa-clock"></i>
-                                <span>40 ساعة/أسبوع</span>
-                            </div>
-                        </div>
-                        
-                        <div class="requirements">
-                            <h4><i class="fas fa-list-check"></i> المتطلبات:</h4>
-                            <ul>
-                                <li>إجادة اللغة الإنجليزية (مستوى B2)</li>
-                                <li>خبرة 6 أشهر في المبيعات (حقلية أو تليفونية)</li>
-                                <li>خبرة سابقة في مجال العقارات أو التسويق المباشر</li>
-                                <li>القدرة على تحقيق أهداف مبيعات شهرية محددة</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="requirements">
-                            <h4><i class="fas fa-gift"></i> المميزات:</h4>
-                            <ul>
-                                <li>عمل عن بعد</li>
-                                <li>راتب ثابت + عمولة</li>
-                                <li>تدريب مجاني (شهادة معتمدة)</li>
-                                <li>بيانات عملاء جاهزة للاتصال</li>
-                                <li>فرص ترقية إلى مدير فريق</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="requirements">
-                            <h4><i class="fas fa-building"></i> عن الشركة:</h4>
-                            <ul>
-                                <li>شركة عقارية دولية مرخصة</li>
-                                <li>مكاتب في دبي وأبو ظبي</li>
-                                <li>أكثر من 10 سنوات خبرة</li>
-                                <li>تعمل في سوق الإمارات والسعودية</li>
-                            </ul>
-                        </div>
-                        
-                        <button class="select-btn" data-job="مندوب مبيعات عقارية (Acquisition)" data-company="Volume X">
-                            <i class="fas fa-paper-plane"></i> التقديم على الوظيفة
-                        </button>
-                    </div>
-                </div>
+                <button class="btn btn-primary" onclick="applyForJob('Proof Health Customer Service')">تقدم الآن</button>
             </div>
-        </section>
-        
-        <!-- قسم التقديم -->
-        <section id="applicationSection" class="application-section">
-            <h2><i class="fas fa-file-alt"></i> نموذج التقديم للوظيفة</h2>
-            <form class="application-form">
-                <div class="form-group">
-                    <label for="fullName"><i class="fas fa-user"></i> الاسم بالكامل</label>
-                    <input type="text" id="fullName" required>
+
+            <!-- وظيفة HSBC -->
+            <div class="job-card">
+                <h3 class="job-title">HSBC Call Center</h3>
+                <div class="job-details">
+                    <p><strong>المتطلبات:</strong></p>
+                    <p>• إتقان اللغة الإنجليزية (مستوى B2+)</p>
+                    <p>• ذكور وإناث (الحد الأقصى للعمر: 35 سنة)</p>
+                    <p>• خريجين فقط / مصريين فقط</p>
+                    <p>• لا تتطلب خبرة (حد أقصى سنتين بعد التخرج)</p>
+                    <p><strong>المزايا:</strong></p>
+                    <p>• الراتب: حتى 15,700 جنيه (إجمالي)</p>
+                    <p>• تدريب مدفوع</p>
+                    <p>• تأمين طبي واجتماعي إجباري</p>
+                    <p>• توفير مواصلات</p>
+                    <p><strong>موقع العمل:</strong> Smart Village</p>
+                    <p><strong>نظام العمل:</strong> 5 أيام عمل، ورديات دورانية، 9 ساعات شاملة ساعة راحة</p>
                 </div>
-                
-                <div class="form-group">
-                    <label for="phoneNumber"><i class="fas fa-phone"></i> رقم الهاتف</label>
-                    <input type="tel" id="phoneNumber" required>
+                <button class="btn btn-primary" onclick="applyForJob('HSBC Call Center')">تقدم الآن</button>
+            </div>
+
+            <!-- وظيفة Real Estate -->
+            <div class="job-card">
+                <h3 class="job-title">Real Estate Acquisition Specialist</h3>
+                <div class="job-details">
+                    <p><strong>طبيعة العمل:</strong> العمل من المنزل بالكامل</p>
+                    <p><strong>المتطلبات:</strong></p>
+                    <p>• مستوى إنجليزية قوي B2</p>
+                    <p>• خبرة لا تقل عن 6 أشهر في المبيعات (يُفضل العقارات)</p>
+                    <p>• خبرة في المكالمات الباردة وتحديد المواعيد</p>
+                    <p>• اتصال إنترنت مستقر وكمبيوتر شخصي وسماعة</p>
+                    <p><strong>المزايا:</strong></p>
+                    <p>• الراتب: 4.2$ للساعة + عمولة بالدولار</p>
+                    <p>• 40 ساعة أسبوعياً</p>
+                    <p>• التوقيت: المناطق الزمنية الأمريكية</p>
+                    <p>• 5 أيام عمل + يومين راحة</p>
+                    <p><strong>المسؤوليات:</strong></p>
+                    <p>• متابعة عملاء PPC</p>
+                    <p>• جمع وتأكيد المعلومات من أصحاب المنازل</p>
+                    <p>• بناء علاقات مع العملاء المحتملين</p>
                 </div>
-                
-                <div class="form-group">
-                    <label for="email"><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
-                    <input type="email" id="email">
-                </div>
-                
-                <div class="form-group">
-                    <label for="jobPosition"><i class="fas fa-briefcase"></i> المسمى الوظيفي</label>
-                    <input type="text" id="jobPosition" readonly>
-                </div>
-                
-                <div class="form-group">
-                    <label for="jobCompany"><i class="fas fa-building"></i> الشركة</label>
-                    <input type="text" id="jobCompany" readonly>
-                </div>
-                
-                <div class="form-group full">
-                    <label><i class="fas fa-edit"></i> ملاحظات</label>
-                    <textarea rows="3" placeholder="أخبرنا عن خبراتك ومؤهلاتك..." id="notes"></textarea>
-                </div>
-                
-                <div class="form-group full">
-                    <div class="voice-recorder">
-                        <div class="recorder-header">
-                            <div class="recorder-title">
-                                <i class="fas fa-microphone"></i> رسالة صوتية (اختيارية)
-                            </div>
-                            <div class="recorder-controls">
-                                <button type="button" class="recorder-btn" id="recordBtn">
-                                    <i class="fas fa-circle"></i> بدء التسجيل
-                                </button>
-                                <button type="button" class="recorder-btn stop" id="stopBtn" disabled>
-                                    <i class="fas fa-stop"></i> إيقاف التسجيل
-                                </button>
-                                <button type="button" class="recorder-btn delete" id="deleteBtn" disabled>
-                                    <i class="fas fa-trash"></i> حذف التسجيل
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="timer" id="timer">00:00</div>
-                        
-                        <div class="recording-visualizer" id="visualizer">
-                            <div class="bar"></div>
-                            <div class="bar"></div>
-                            <div class="bar"></div>
-                            <div class="bar"></div>
-                            <div class="bar"></div>
-                            <div class="bar"></div>
-                            <div class="bar"></div>
-                            <div class="bar"></div>
-                            <div class="bar"></div>
-                            <div class="bar"></div>
-                        </div>
-                        
-                        <audio class="audio-playback" id="audioPlayback" controls></audio>
-                    </div>
-                </div>
-                
-                <button type="submit" class="submit-btn">
-                    <i class="fas fa-paper-plane"></i> إرسال الطلب
-                </button>
-            </form>
-        </section>
-        
-        <!-- قسم الموظفين -->
-        <section id="staffSection" class="staff-section">
-            <h2><i class="fas fa-lock"></i> دخول الموظفين</h2>
-            <p>الرجاء إدخال كلمة المرور الخاصة بالموظفين للوصول إلى لوحة التحكم.</p>
-            
+                <button class="btn btn-primary" onclick="applyForJob('Real Estate Acquisition')">تقدم الآن</button>
+            </div>
+        </div>
+
+        <!-- نموذج تسجيل الدخول -->
+        <div id="login" class="section">
             <div class="login-form">
-                <div class="password-input">
-                    <input type="password" id="password" placeholder="أدخل كلمة المرور">
-                    <button class="password-toggle" id="passwordToggle">
-                        <i class="fas fa-eye"></i>
-                    </button>
+                <h2 style="color: #2a5298; margin-bottom: 30px;">تسجيل دخول الموظفين</h2>
+                <div class="form-group">
+                    <label>كلمة المرور:</label>
+                    <input type="password" id="adminPassword" placeholder="أدخل كلمة المرور">
                 </div>
-                
-                <button class="staff-btn" id="staffLogin">دخول الموظفين</button>
+                <button class="btn btn-primary" onclick="adminLogin()">دخول</button>
             </div>
-        </section>
-        
-        <!-- لوحة تحكم الموظفين -->
-        <section id="dashboardSection" class="dashboard-section">
-            <div class="dashboard-header">
-                <h2><i class="fas fa-tachometer-alt"></i> لوحة تحكم الموظفين</h2>
-                <button class="staff-login-btn" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
-                </button>
-            </div>
-            
-            <!-- إحصائيات المتقدمين -->
-            <div class="stats-cards">
-                <div class="stat-card">
-                    <h3>إجمالي المتقدمين</h3>
-                    <div class="value" id="totalApplicants">0</div>
-                    <div class="trend"><i class="fas fa-arrow-up"></i> +18% عن الشهر الماضي</div>
+        </div>
+
+        <!-- لوحة الإدارة -->
+        <div id="admin" class="section">
+            <div class="admin-panel">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <h2 style="color: #2a5298;">لوحة إدارة المتقدمين</h2>
+                    <button class="btn btn-secondary" onclick="logout()">تسجيل خروج</button>
                 </div>
                 
-                <div class="stat-card concentrix">
-                    <h3>متقدمين Concentrix</h3>
-                    <div class="value" id="concentrixApplicants">0</div>
-                    <div class="trend"><i class="fas fa-arrow-up"></i> +8% عن الشهر الماضي</div>
-                </div>
-                
-                <div class="stat-card hsbc">
-                    <h3>متقدمين HSBC</h3>
-                    <div class="value" id="hsbcApplicants">0</div>
-                    <div class="trend"><i class="fas fa-arrow-down"></i> -3% عن الشهر الماضي</div>
-                </div>
-                
-                <div class="stat-card volumex">
-                    <h3>متقدمين Volume X</h3>
-                    <div class="value" id="volumexApplicants">0</div>
-                    <div class="trend"><i class="fas fa-arrow-up"></i> +22% عن الشهر الماضي</div>
-                </div>
-                
-                <div class="stat-card real-estate">
-                    <h3>متقدمين العقارات</h3>
-                    <div class="value" id="realEstateApplicants">0</div>
-                    <div class="trend"><i class="fas fa-arrow-up"></i> +150% عن الشهر الماضي</div>
+                <div id="applicantsList">
+                    <!-- سيتم عرض المتقدمين هنا -->
                 </div>
             </div>
-            
-            <!-- تصفية الشركات -->
-            <div class="company-filter">
-                <div class="filter-option active" data-company="all">الكل</div>
-                <div class="filter-option" data-company="Concentrix">Concentrix</div>
-                <div class="filter-option" data-company="HSBC">HSBC</div>
-                <div class="filter-option" data-company="Volume X">Volume X</div>
-            </div>
-            
-            <!-- جدول المتقدمين -->
-            <div class="applicants-section">
-                <div class="section-header">
-                    <h3><i class="fas fa-user-friends"></i> قائمة المتقدمين</h3>
-                    
-                    <div class="controls">
-                        <div class="search-box">
-                            <input type="text" id="searchInput" placeholder="ابحث عن متقدم...">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        <button class="filter-btn"><i class="fas fa-filter"></i> تصفية</button>
-                        <button class="export-btn"><i class="fas fa-file-export"></i> تصدير</button>
-                    </div>
+        </div>
+    </div>
+
+    <!-- نافذة التقديم -->
+    <div id="applicationModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalJobTitle" style="color: #2a5298; margin-bottom: 20px;"></h3>
+            <form id="applicationForm">
+                <div class="form-group">
+                    <label>الاسم الكامل *</label>
+                    <input type="text" id="applicantName" required>
                 </div>
                 
-                <table class="applicants-table">
-                    <thead>
-                        <tr>
-                            <th>المتقدم</th>
-                            <th>الوظيفة</th>
-                            <th>الشركة</th>
-                            <th>رقم الهاتف</th>
-                            <th>التاريخ</th>
-                            <th>حالة الطلب</th>
-                            <th>الإجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody id="applicantsTableBody">
-                        <!-- سيتم ملء الجدول بالمتقدمين -->
-                    </tbody>
-                </table>
-            </div>
-            
-            <!-- تفاصيل المتقدم -->
-            <div class="applicant-detail" id="applicantDetail">
-                <div class="detail-header">
-                    <h3>تفاصيل المتقدم</h3>
-                    <button class="close-btn" id="closeDetail"><i class="fas fa-times"></i></button>
+                <div class="form-group">
+                    <label>البريد الإلكتروني *</label>
+                    <input type="email" id="applicantEmail" required>
                 </div>
                 
-                <div class="applicant-info">
-                    <div class="info-card">
-                        <h4><i class="fas fa-user"></i> المعلومات الشخصية</h4>
-                        <div class="info-row">
-                            <div class="info-label">الاسم الكامل:</div>
-                            <div class="info-value" id="detail-fullName">-</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-label">رقم الهاتف:</div>
-                            <div class="info-value" id="detail-phone">-</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-label">البريد الإلكتروني:</div>
-                            <div class="info-value" id="detail-email">-</div>
-                        </div>
-                    </div>
-                    
-                    <div class="info-card">
-                        <h4><i class="fas fa-briefcase"></i> معلومات الوظيفة</h4>
-                        <div class="info-row">
-                            <div class="info-label">الوظيفة:</div>
-                            <div class="info-value" id="detail-job">-</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-label">الشركة:</div>
-                            <div class="info-value" id="detail-company">-</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-label">تاريخ التقديم:</div>
-                            <div class="info-value" id="detail-date">-</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-label">الحالة:</div>
-                            <div class="info-value" id="detail-status">-</div>
-                        </div>
-                    </div>
-                    
-                    <div class="info-card">
-                        <h4><i class="fas fa-file-alt"></i> معلومات إضافية</h4>
-                        <div class="info-row">
-                            <div class="info-label">ملاحظات:</div>
-                            <div class="info-value" id="detail-notes">-</div>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label>رقم الهاتف *</label>
+                    <input type="tel" id="applicantPhone" required>
                 </div>
                 
-                <!-- مشغل الصوت -->
-                <div class="voice-player">
-                    <div class="player-header">
-                        <h4><i class="fas fa-microphone-alt"></i> الرسالة الصوتية للمتقدم</h4>
-                        <div class="audio-controls">
-                            <button class="action-btn"><i class="fas fa-download"></i> تحميل</button>
-                            <button class="action-btn"><i class="fas fa-share-alt"></i> مشاركة</button>
-                        </div>
-                    </div>
-                    
-                    <audio class="audio-player" controls id="detail-audio">
-                        <source src="#" type="audio/mpeg">
-                        المتصفح لا يدعم تشغيل الصوت.
-                    </audio>
+                <div class="form-group">
+                    <label>الصورة الشخصية *</label>
+                    <input type="file" id="applicantPhoto" accept="image/*" required>
                 </div>
                 
-                <!-- إجراءات المتقدم -->
-                <div style="display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap;">
-                    <button class="action-btn" style="background: var(--success); color: white;" id="acceptBtn">
-                        <i class="fas fa-check"></i> قبول المتقدم
-                    </button>
-                    <button class="action-btn" style="background: #ef4444; color: white;" id="rejectBtn">
-                        <i class="fas fa-times"></i> رفض المتقدم
-                    </button>
-                    <button class="action-btn" id="emailBtn">
-                        <i class="fas fa-envelope"></i> إرسال بريد
-                    </button>
-                    <button class="action-btn" id="interviewBtn">
-                        <i class="fas fa-phone"></i> مقابلة هاتفية
-                    </button>
-                </div>
-            </div>
-        </section>
-        
-        <!-- قسم عنا -->
-        <section id="aboutSection" class="about-section">
-            <div class="about-content">
-                <h2><i class="fas fa-info-circle"></i> عن منصة Work Wise</h2>
-                
-                <div class="ceo-info">
-                    <div class="ceo-photo">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <div class="ceo-details">
-                        <h3>Bishoy - المؤسس والمدير التنفيذي</h3>
-                        <p>مرحباً بكم في Work Wise، منصة التوظيف الرائدة في المنطقة منذ أكثر من 10 سنوات في مجال التوظيف.</p>
-                        
-                        <div class="social-links">
-                            <a href="https://www.instagram.com/workwisegy?igsh=Y29uY2g0MmRpaHAx" target="_blank">
-                                <i class="fab fa-instagram"></i> Instagram
-                            </a>
-                            <a href="https://www.facebook.com/share/1FJ4C1asYg/" target="_blank">
-                                <i class="fab fa-facebook"></i> Facebook
-                            </a>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label>الخبرات والملاحظات *</label>
+                    <textarea id="applicantExperience" rows="4" placeholder="اكتب خبراتك ومؤهلاتك..." required></textarea>
                 </div>
                 
-                <div class="company-info">
-                    <p>Work Wise هي منصة توظيف ذكية تساعد الشركات في العثور على أفضل المواهب والمتقدمين في العثور على فرصهم المثالية. منذ تأسيسها عام 2020، ساعدت أكثر من 5000 شخص في الحصول على وظائف أحلامهم.</p>
-                    <p>نحن نؤمن بأن كل شخص يستحق فرصة عادلة للحصول على وظيفة تناسب مهاراته وتطلعاته، ونسعى جاهدين لتحقيق هذه الرؤية.</p>
+                <div class="form-group">
+                    <label>تسجيل صوتي للتعريف بنفسك *</label>
+                    <div class="record-controls">
+                        <button type="button" class="record-btn start" id="startRecord" onclick="startRecording()">بدء التسجيل</button>
+                        <button type="button" class="record-btn stop" id="stopRecord" onclick="stopRecording()" disabled>إيقاف التسجيل</button>
+                        <span id="recordingTime">00:00</span>
+                    </div>
+                    <audio id="audioPreview" class="audio-player" controls style="display: none;"></audio>
                 </div>
-            </div>
-        </section>
-        
-        <footer>
-            <p>جميع الحقوق محفوظة &copy; 2023 Work Wise - منصة التوظيف الذكية</p>
-            <p>تم الإنشاء بواسطة المهندس أحمد التركي</p>
-        </footer>
-        
-        <div class="notification" id="notification">تم إرسال طلبك بنجاح!</div>
+                
+                <div style="display: flex; gap: 10px; justify-content: center; margin-top: 30px;">
+                    <button type="submit" class="btn btn-primary">إرسال التقديم</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">إلغاء</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script>
-        // تبديل الأقسام
-        const homeSection = document.getElementById('homeSection');
-        const applicationSection = document.getElementById('applicationSection');
-        const staffSection = document.getElementById('staffSection');
-        const dashboardSection = document.getElementById('dashboardSection');
-        const aboutSection = document.getElementById('aboutSection');
-        const notification = document.getElementById('notification');
-        
-        document.getElementById('homeLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection(homeSection);
-        });
-        
-        document.getElementById('jobsLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection(homeSection);
-            window.scrollTo(0, document.querySelector('.jobs-container').offsetTop - 100);
-        });
-        
-        document.getElementById('applyLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection(applicationSection);
-        });
-        
-        document.getElementById('staffLoginBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection(staffSection);
-        });
-        
-        document.getElementById('aboutLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            showSection(aboutSection);
-        });
-        
-        function showSection(section) {
-            homeSection.style.display = 'none';
-            applicationSection.style.display = 'none';
-            staffSection.style.display = 'none';
-            dashboardSection.style.display = 'none';
-            aboutSection.style.display = 'none';
-            section.style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-        
-        // اختيار الوظيفة
-        const selectBtns = document.querySelectorAll('.select-btn');
-        const jobPositionInput = document.getElementById('jobPosition');
-        const jobCompanyInput = document.getElementById('jobCompany');
-        
-        selectBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const jobTitle = btn.getAttribute('data-job');
-                const company = btn.getAttribute('data-company');
-                jobPositionInput.value = jobTitle;
-                jobCompanyInput.value = company;
-                showSection(applicationSection);
-                
-                // التمرير إلى القسم
-                applicationSection.scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-        
-        // مسجل الصوت
-        const recordBtn = document.getElementById('recordBtn');
-        const stopBtn = document.getElementById('stopBtn');
-        const deleteBtn = document.getElementById('deleteBtn');
-        const timer = document.getElementById('timer');
-        const visualizer = document.getElementById('visualizer');
-        const audioPlayback = document.getElementById('audioPlayback');
-        
+        // بيانات التطبيق
+        let currentJob = '';
+        let applicants = JSON.parse(localStorage?.getItem('workwise_applicants') || '[]');
+        let isRecording = false;
         let mediaRecorder;
         let audioChunks = [];
-        let recording = false;
-        let seconds = 0;
-        let timerInterval;
-        const maxDuration = 60; // أقصى مدة للتسجيل بالثواني
-        
-        // بدء التسجيل
-        recordBtn.addEventListener('click', async () => {
+        let recordingInterval;
+        let recordingStartTime;
+
+        // عرض الأقسام
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // التقديم على وظيفة
+        function applyForJob(jobTitle) {
+            currentJob = jobTitle;
+            document.getElementById('modalJobTitle').textContent = 'التقديم على: ' + jobTitle;
+            document.getElementById('applicationModal').classList.add('active');
+        }
+
+        // إغلاق النافذة المنبثقة
+        function closeModal() {
+            document.getElementById('applicationModal').classList.remove('active');
+            document.getElementById('applicationForm').reset();
+            stopRecording();
+        }
+
+        // بدء التسجيل الصوتي
+        async function startRecording() {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 mediaRecorder = new MediaRecorder(stream);
-                
-                mediaRecorder.ondataavailable = (e) => {
-                    audioChunks.push(e.data);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
                 };
-                
+
                 mediaRecorder.onstop = () => {
-                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
                     const audioUrl = URL.createObjectURL(audioBlob);
-                    audioPlayback.src = audioUrl;
-                    audioPlayback.style.display = 'block';
-                    deleteBtn.disabled = false;
+                    const audioPreview = document.getElementById('audioPreview');
+                    audioPreview.src = audioUrl;
+                    audioPreview.style.display = 'block';
                 };
-                
+
                 mediaRecorder.start();
-                recording = true;
-                recordBtn.disabled = true;
-                stopBtn.disabled = false;
-                visualizer.style.display = 'flex';
+                isRecording = true;
+                recordingStartTime = Date.now();
                 
-                // تشغيل المؤقت
-                seconds = 0;
-                timerInterval = setInterval(() => {
-                    seconds++;
-                    const mins = Math.floor(seconds / 60);
-                    const secs = seconds % 60;
-                    timer.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-                    
-                    // إيقاف التسجيل تلقائياً عند الوصول للحد الأقصى
-                    if (seconds >= maxDuration) {
-                        stopRecording();
-                    }
-                }, 1000);
-            } catch (err) {
-                alert('تعذر الوصول إلى الميكروفون. يرجى التحقق من الإعدادات.');
-                console.error('Microphone access error:', err);
-            }
-        });
-        
-        // إيقاف التسجيل
-        stopBtn.addEventListener('click', stopRecording);
-        
-        function stopRecording() {
-            if (mediaRecorder && recording) {
-                mediaRecorder.stop();
-                recording = false;
-                clearInterval(timerInterval);
-                recordBtn.disabled = false;
-                stopBtn.disabled = true;
-                visualizer.style.display = 'none';
+                document.getElementById('startRecord').disabled = true;
+                document.getElementById('stopRecord').disabled = false;
+                
+                // عداد الوقت
+                recordingInterval = setInterval(updateRecordingTime, 1000);
+                
+            } catch (error) {
+                alert('لا يمكن الوصول للميكروفون. تأكد من السماح بالوصول.');
             }
         }
-        
-        // حذف التسجيل
-        deleteBtn.addEventListener('click', () => {
-            audioPlayback.src = '';
-            audioPlayback.style.display = 'none';
-            deleteBtn.disabled = true;
-            audioChunks = [];
-        });
-        
-        // إظهار/إخفاء كلمة المرور
-        const passwordToggle = document.getElementById('passwordToggle');
-        const passwordInput = document.getElementById('password');
-        
-        passwordToggle.addEventListener('click', () => {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            passwordToggle.innerHTML = type === 'password' ? 
-                '<i class="fas fa-eye"></i>' : 
-                '<i class="fas fa-eye-slash"></i>';
-        });
-        
-        // تخزين الطلبات
-        let applications = JSON.parse(localStorage.getItem('workwise_applications')) || [];
-        let currentApplicationId = null;
-        
-        // إرسال الطلب
-        const applicationForm = document.querySelector('.application-form');
-        
-        applicationForm.addEventListener('submit', (e) => {
+
+        // إيقاف التسجيل
+        function stopRecording() {
+            if (mediaRecorder && isRecording) {
+                mediaRecorder.stop();
+                mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                isRecording = false;
+                
+                document.getElementById('startRecord').disabled = false;
+                document.getElementById('stopRecord').disabled = true;
+                
+                clearInterval(recordingInterval);
+            }
+        }
+
+        // تحديث وقت التسجيل
+        function updateRecordingTime() {
+            if (isRecording) {
+                const elapsed = Math.floor((Date.now() - recordingStartTime) / 1000);
+                const minutes = Math.floor(elapsed / 60);
+                const seconds = elapsed % 60;
+                document.getElementById('recordingTime').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }
+
+        // إرسال التقديم
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // التحقق من وجود تسجيل صوتي
-            if (!audioPlayback.src) {
-                alert('الرجاء إضافة تسجيل صوتي قبل الإرسال');
+            const audioPreview = document.getElementById('audioPreview');
+            if (!audioPreview.src) {
+                alert('يجب تسجيل مقطع صوتي للتعريف بنفسك');
                 return;
             }
-            
-            // جمع بيانات الطلب
-            const fullName = document.getElementById('fullName').value;
-            const phone = document.getElementById('phoneNumber').value;
-            const email = document.getElementById('email').value || 'لا يوجد';
-            const job = document.getElementById('jobPosition').value;
-            const company = document.getElementById('jobCompany').value;
-            const notes = document.getElementById('notes').value || 'لا يوجد ملاحظات';
-            
-            // إنشاء طلب جديد
-            const newApplication = {
+
+            const formData = {
                 id: Date.now(),
-                fullName,
-                phone,
-                email,
-                job,
-                company,
-                notes,
-                date: new Date().toLocaleDateString('ar-EG'),
+                jobTitle: currentJob,
+                name: document.getElementById('applicantName').value,
+                email: document.getElementById('applicantEmail').value,
+                phone: document.getElementById('applicantPhone').value,
+                photo: document.getElementById('applicantPhoto').files[0]?.name || 'صورة مرفوعة',
+                experience: document.getElementById('applicantExperience').value,
+                audioRecording: 'تسجيل صوتي مرفق',
                 status: 'pending',
-                audioUrl: audioPlayback.src
+                appliedAt: new Date().toLocaleString('ar-EG')
             };
+
+            applicants.push(formData);
+            try {
+                localStorage.setItem('workwise_applicants', JSON.stringify(applicants));
+            } catch(e) {
+                // fallback إذا localStorage غير متاح
+            }
             
-            // إضافة الطلب إلى القائمة
-            applications.push(newApplication);
-            localStorage.setItem('workwise_applications', JSON.stringify(applications));
-            
-            // عرض الإشعار
-            notification.style.display = 'block';
-            notification.textContent = 'تم إرسال طلبك بنجاح! سيتم مراجعة طلبك من قبل فريقنا.';
-            
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 5000);
-            
-            // إعادة تعيين النموذج
-            setTimeout(() => {
-                applicationForm.reset();
-                audioPlayback.style.display = 'none';
-                timer.textContent = '00:00';
-                seconds = 0;
-                audioChunks = [];
-                deleteBtn.disabled = true;
-                showSection(homeSection);
-            }, 3000);
+            alert('تم إرسال طلب التقديم بنجاح! سيتم مراجعته والرد عليك قريباً.');
+            closeModal();
         });
-        
-        // تسجيل دخول الموظفين
-        document.getElementById('staffLogin').addEventListener('click', () => {
-            const password = passwordInput.value;
-            
-            // كلمة المرور: workwise123456
-            if (password === 'workwise123456') {
-                showSection(dashboardSection);
-                loadApplications();
-                updateStats();
+
+        // تسجيل دخول الإدارة
+        function adminLogin() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === 'workwisr123456') {
+                showSection('admin');
+                loadApplicants();
             } else {
-                alert('كلمة المرور غير صحيحة. حاول مرة أخرى.');
+                alert('كلمة المرور غير صحيحة');
             }
-        });
-        
-        // تسجيل خروج الموظفين
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            if (confirm('هل أنت متأكد من تسجيل الخروج من لوحة التحكم؟')) {
-                showSection(homeSection);
-            }
-        });
-        
-        // تحديث الإحصائيات
-        function updateStats() {
-            document.getElementById('totalApplicants').textContent = applications.length;
-            
-            const concentrix = applications.filter(app => app.company === 'Concentrix').length;
-            const hsbc = applications.filter(app => app.company === 'HSBC').length;
-            const volumex = applications.filter(app => app.company === 'Volume X').length;
-            const realEstate = applications.filter(app => app.job.includes('عقارية')).length;
-            
-            document.getElementById('concentrixApplicants').textContent = concentrix;
-            document.getElementById('hsbcApplicants').textContent = hsbc;
-            document.getElementById('volumexApplicants').textContent = volumex;
-            document.getElementById('realEstateApplicants').textContent = realEstate;
         }
-        
-        // تصفية الشركات
-        const filterOptions = document.querySelectorAll('.filter-option');
-        filterOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                filterOptions.forEach(opt => opt.classList.remove('active'));
-                option.classList.add('active');
-                
-                const company = option.getAttribute('data-company');
-                loadApplications(company);
-            });
-        });
-        
-        // إغلاق تفاصيل المتقدم
-        const applicantDetail = document.getElementById('applicantDetail');
-        const closeDetail = document.getElementById('closeDetail');
-        
-        closeDetail.addEventListener('click', () => {
-            applicantDetail.style.display = 'none';
-        });
-        
-        // بحث المتقدمين
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const rows = document.querySelectorAll('#applicantsTableBody tr');
-            
-            rows.forEach(row => {
-                const name = row.querySelector('.applicant-name span').textContent.toLowerCase();
-                const job = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-                
-                if (name.includes(searchTerm) || job.includes(searchTerm)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        });
-        
+
+        // تسجيل خروج
+        function logout() {
+            showSection('jobs');
+            document.getElementById('adminPassword').value = '';
+        }
+
         // تحميل المتقدمين
-        function loadApplications(company = 'all') {
-            const applicantsTableBody = document.getElementById('applicantsTableBody');
-            applicantsTableBody.innerHTML = '';
+        function loadApplicants() {
+            const applicantsList = document.getElementById('applicantsList');
             
-            let filteredApplications = applications;
-            if (company !== 'all') {
-                filteredApplications = applications.filter(app => app.company === company);
+            if (applicants.length === 0) {
+                applicantsList.innerHTML = '<p style="text-align: center; color: #666;">لا توجد طلبات تقديم حتى الآن</p>';
+                return;
             }
-            
-            filteredApplications.forEach(app => {
-                const row = document.createElement('tr');
-                
-                // صورة عشوائية للمتقدم
-                const randomId = Math.floor(Math.random() * 100);
-                const gender = Math.random() > 0.5 ? 'men' : 'women';
-                
-                row.innerHTML = `
-                    <td>
-                        <div class="applicant-name">
-                            <img src="https://randomuser.me/api/portraits/${gender}/${randomId}.jpg" alt="صورة المتقدم">
-                            <span>${app.fullName}</span>
+
+            applicantsList.innerHTML = applicants.map(applicant => `
+                <div class="applicant-card">
+                    <div style="display: flex; justify-content: between; align-items: start; margin-bottom: 15px;">
+                        <div>
+                            <h4 style="color: #2a5298; margin-bottom: 5px;">${applicant.name}</h4>
+                            <p style="color: #666; font-size: 14px;">تقدم على: ${applicant.jobTitle}</p>
+                            <span class="status-badge status-${applicant.status}">
+                                ${applicant.status === 'pending' ? 'قيد المراجعة' : 
+                                  applicant.status === 'approved' ? 'مقبول' : 'مرفوض'}
+                            </span>
                         </div>
-                    </td>
-                    <td>${app.job}</td>
-                    <td>${app.company}</td>
-                    <td>${app.phone}</td>
-                    <td><span class="status ${app.status}">${getStatusText(app.status)}</span></td>
-                    <td>${app.date}</td>
-                    <td><button class="action-btn view-btn" data-id="${app.id}"><i class="fas fa-eye"></i> عرض</button></td>
-                `;
-                
-                applicantsTableBody.appendChild(row);
-                
-                // عرض تفاصيل المتقدم عند النقر
-                row.querySelector('.view-btn').addEventListener('click', () => {
-                    showApplicationDetails(app);
-                });
-            });
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                        <div>
+                            <strong>البريد الإلكتروني:</strong><br>
+                            <a href="mailto:${applicant.email}">${applicant.email}</a>
+                        </div>
+                        <div>
+                            <strong>رقم الهاتف:</strong><br>
+                            <a href="tel:${applicant.phone}">${applicant.phone}</a>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <strong>الخبرات والملاحظات:</strong><br>
+                        <p style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin-top: 5px;">${applicant.experience}</p>
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <strong>تاريخ التقديم:</strong> ${applicant.appliedAt}
+                    </div>
+                    
+                    <div class="applicant-actions">
+                        <button class="btn btn-success" onclick="updateStatus(${applicant.id}, 'approved')" 
+                                ${applicant.status === 'approved' ? 'disabled' : ''}>
+                            ✓ قبول
+                        </button>
+                        <button class="btn btn-danger" onclick="updateStatus(${applicant.id}, 'rejected')"
+                                ${applicant.status === 'rejected' ? 'disabled' : ''}>
+                            ✗ رفض
+                        </button>
+                        <button class="btn btn-warning" onclick="deleteApplicant(${applicant.id})">
+                            🗑 حذف
+                        </button>
+                    </div>
+                </div>
+            `).join('');
         }
-        
-        function getStatusText(status) {
-            switch(status) {
-                case 'pending': return 'قيد المراجعة';
-                case 'reviewed': return 'تمت المراجعة';
-                case 'accepted': return 'مقبول';
-                case 'rejected': return 'مرفوض';
-                default: return status;
+
+        // تحديث حالة المتقدم
+        function updateStatus(applicantId, newStatus) {
+            const applicantIndex = applicants.findIndex(app => app.id === applicantId);
+            if (applicantIndex !== -1) {
+                applicants[applicantIndex].status = newStatus;
+                try {
+                    localStorage.setItem('workwise_applicants', JSON.stringify(applicants));
+                } catch(e) {
+                    // fallback إذا localStorage غير متاح
+                }
+                loadApplicants();
+                
+                const statusText = newStatus === 'approved' ? 'تم قبول' : 'تم رفض';
+                alert(`${statusText} المتقدم بنجاح`);
             }
         }
-        
-        function showApplicationDetails(application) {
-            document.getElementById('detail-fullName').textContent = application.fullName;
-            document.getElementById('detail-phone').textContent = application.phone;
-            document.getElementById('detail-email').textContent = application.email || 'لا يوجد';
-            document.getElementById('detail-job').textContent = application.job;
-            document.getElementById('detail-company').textContent = application.company;
-            document.getElementById('detail-date').textContent = application.date;
-            document.getElementById('detail-status').innerHTML = `<span class="status ${application.status}">${getStatusText(application.status)}</span>`;
-            document.getElementById('detail-notes').textContent = application.notes;
-            
-            if (application.audioUrl) {
-                document.getElementById('detail-audio').src = application.audioUrl;
-            } else {
-                document.getElementById('detail-audio').src = '#';
+
+        // حذف متقدم
+        function deleteApplicant(applicantId) {
+            if (confirm('هل أنت متأكد من حذف هذا المتقدم؟')) {
+                applicants = applicants.filter(app => app.id !== applicantId);
+                try {
+                    localStorage.setItem('workwise_applicants', JSON.stringify(applicants));
+                } catch(e) {
+                    // fallback إذا localStorage غير متاح
+                }
+                loadApplicants();
+                alert('تم حذف المتقدم بنجاح');
             }
-            
-            applicantDetail.style.display = 'block';
-            currentApplicationId = application.id;
-            
-            // التمرير إلى قسم التفاصيل
-            applicantDetail.scrollIntoView({ behavior: 'smooth' });
         }
-        
-        // قبول أو رفض المتقدم
-        document.getElementById('acceptBtn').addEventListener('click', () => {
-            updateApplicationStatus('accepted');
+
+        // إغلاق النافذة عند النقر خارجها
+        document.getElementById('applicationModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
         });
-        
-        document.getElementById('rejectBtn').addEventListener('click', () => {
-            updateApplicationStatus('rejected');
-        });
-        
-        function updateApplicationStatus(status) {
-            if (!currentApplicationId) return;
-            
-            const index = applications.findIndex(app => app.id === currentApplicationId);
-            if (index !== -1) {
-                applications[index].status = status;
-                localStorage.setItem('workwise_applications', JSON.stringify(applications));
-                
-                // تحديث الواجهة
-                document.getElementById('detail-status').innerHTML = `<span class="status ${status}">${getStatusText(status)}</span>`;
-                
-                // تحديث الجدول والإحصائيات
-                const currentCompany = document.querySelector('.filter-option.active').getAttribute('data-company');
-                loadApplications(currentCompany);
-                updateStats();
-                
-                alert(`تم تحديث حالة المتقدم إلى: ${getStatusText(status)}`);
+
+        // تحميل البيانات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                const savedApplicants = localStorage.getItem('workwise_applicants');
+                if (savedApplicants) {
+                    applicants = JSON.parse(savedApplicants);
+                }
+            } catch(e) {
+                // fallback إذا localStorage غير متاح
+                applicants = [];
             }
-        }
-        
-        // تهيئة الصفحة
-        document.addEventListener('DOMContentLoaded', () => {
-            showSection(homeSection);
         });
     </script>
 </body>
