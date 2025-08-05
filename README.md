@@ -1315,3 +1315,219 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkWise - منصة التوظيف العالمية</title>
+    <style>
+        /* ... (كل أنماط CSS السابقة تبقى كما هي) ... */
+    </style>
+</head>
+<body>
+    <div class="logo-bg"></div>
+    
+    <!-- إشعارات -->
+    <div id="notification" class="notification"></div>
+    
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">W</div>
+                WorkWise
+            </div>
+            <p style="color: #666; font-size: 1.1rem;">منصة التوظيف العالمية - اتصل بأفضل الفرص حول العالم</p>
+            
+            <div class="nav-buttons">
+                <button class="btn btn-primary" onclick="showSection('jobs')">الوظائف المتاحة</button>
+                <button class="btn btn-secondary" onclick="showSection('login')">لوحة الموظفين</button>
+            </div>
+        </header>
+
+        <!-- قسم الوظائف -->
+        <div id="jobs" class="section active">
+            <!-- ... (نفس محتوى الوظائف السابق) ... -->
+        </div>
+
+        <!-- نموذج تسجيل الدخول -->
+        <div id="login" class="section">
+            <div class="login-form">
+                <h2 style="color: #2a5298; margin-bottom: 30px;">🔐 لوحة الموظفين</h2>
+                <p style="color: #666; margin-bottom: 20px;">أدخل كلمة المرور للوصول إلى لوحة التحكم</p>
+                <div class="form-group">
+                    <label>كلمة المرور:</label>
+                    <input type="password" id="adminPassword" placeholder="أدخل كلمة المرور">
+                </div>
+                <button class="btn btn-primary" onclick="adminLogin()">🚀 دخول</button>
+            </div>
+        </div>
+
+        <!-- لوحة الإدارة -->
+        <div id="admin" class="section">
+            <div class="admin-panel">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <h2 style="color: #2a5298;">🌍 لوحة إدارة المتقدمين</h2>
+                    <div>
+                        <button class="btn btn-primary" onclick="refreshData()" style="margin-left: 10px;">🔄 تحديث</button>
+                        <button class="btn btn-secondary" onclick="logout()">🚪 خروج</button>
+                    </div>
+                </div>
+                
+                <!-- حالة الاتصال -->
+                <div id="connectionStatus" class="connection-status offline" style="position: static; margin-bottom: 20px;">
+                    جاري التحقق من حالة الخادم...
+                </div>
+                
+                <!-- إحصائيات -->
+                <div class="stats-bar" style="margin-bottom: 20px;">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalApplications">0</span>
+                        <span>إجمالي الطلبات</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="pendingApplications">0</span>
+                        <span>قيد المراجعة</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="approvedApplications">0</span>
+                        <span>مقبول</span>
+                    </div>
+                </div>
+                
+                <div id="applicantsList">
+                    <div style="text-align: center; padding: 40px;">
+                        <div class="loading"></div>
+                        <p>جاري تحميل البيانات...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ... (بقية العناصر مثل modals تبقى كما هي) ... -->
+
+    <script>
+        // إعداد Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBrXm8nBfH3gNJ7KH8RLx6X5K5xZq8QfGw",
+            authDomain: "workwise-global-jobs.firebaseapp.com",
+            databaseURL: "https://workwise-global-jobs-default-rtdb.firebaseio.com/",
+            projectId: "workwise-global-jobs",
+            storageBucket: "workwise-global-jobs.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abc123def456"
+        };
+
+        // تهيئة Firebase
+        let database;
+        let isFirebaseConnected = false;
+
+        function initFirebase() {
+            try {
+                firebase.initializeApp(firebaseConfig);
+                database = firebase.database();
+                isFirebaseConnected = true;
+                
+                // اختبار الاتصال
+                database.ref('.info/connected').on('value', (snapshot) => {
+                    updateConnectionStatus(snapshot.val() === true);
+                });
+                
+                return true;
+            } catch (error) {
+                console.error('فشل الاتصال بـ Firebase:', error);
+                isFirebaseConnected = false;
+                updateConnectionStatus(false);
+                return false;
+            }
+        }
+
+        function updateConnectionStatus(connected) {
+            const statusElement = document.getElementById('connectionStatus');
+            if (connected) {
+                statusElement.textContent = '✓ متصل بالخادم بنجاح';
+                statusElement.className = 'connection-status online';
+            } else {
+                statusElement.textContent = '✗ غير متصل بالخادم - يتم العمل بالنظام المحلي';
+                statusElement.className = 'connection-status offline';
+            }
+        }
+
+        // نظام إدارة البيانات العالمي
+        class GlobalJobSystem {
+            constructor() {
+                this.applicants = [];
+                this.listeners = [];
+                this.localStorageKey = 'workwise_applications';
+                this.init();
+            }
+
+            async init() {
+                if (initFirebase()) {
+                    // الاستماع للتغييرات في الوقت الفعلي من Firebase
+                    database.ref('applications').on('value', (snapshot) => {
+                        this.applicants = snapshot.val() || [];
+                        this.notifyListeners();
+                        this.updateStats();
+                    });
+                } else {
+                    // استخدام localStorage كبديل عند عدم الاتصال
+                    this.loadFromLocal();
+                }
+            }
+
+            loadFromLocal() {
+                const savedData = localStorage.getItem(this.localStorageKey);
+                this.applicants = savedData ? JSON.parse(savedData) : [];
+                this.updateStats();
+            }
+
+            async addApplication(application) {
+                const newApplication = {
+                    ...application,
+                    id: Date.now().toString(),
+                    status: 'pending',
+                    timestamp: new Date().toISOString()
+                };
+
+                this.applicants.unshift(newApplication);
+                
+                if (isFirebaseConnected) {
+                    try {
+                        await database.ref('applications').set(this.applicants);
+                    } catch (error) {
+                        this.saveToLocal();
+                    }
+                } else {
+                    this.saveToLocal();
+                }
+
+                this.updateStats();
+                return newApplication;
+            }
+
+            saveToLocal() {
+                localStorage.setItem(this.localStorageKey, JSON.stringify(this.applicants));
+            }
+
+            // ... (بقية الدوال تبقى كما هي) ...
+        }
+
+        // تهيئة النظام العالمي
+        const jobSystem = new GlobalJobSystem();
+
+        function adminLogin() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === 'workwise12345') {
+                showSection('admin');
+                showNotification('تم تسجيل الدخول بنجاح!', 'success');
+            } else {
+                showNotification('كلمة المرور غير صحيحة!', 'error');
+            }
+        }
+
+        // ... (بقية الدوال تبقى كما هي) ...
+    </script>
+</body>
+</html>
