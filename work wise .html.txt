@@ -3,19 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WorkWise - منصة التوظيف</title>
+    <title>WorkWise - منصة التوظيف العالمية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #2a5298;
+            --secondary-color: #1e3c72;
+            --accent-color: #4CAF50;
+            --danger-color: #f44336;
+            --warning-color: #ff9800;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
             min-height: 100vh;
-            color: #333;
+            color: var(--dark-color);
+            line-height: 1.6;
         }
 
         .logo-bg {
@@ -23,7 +35,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            opacity: 0.1;
+            opacity: 0.05;
             z-index: -1;
             width: 400px;
             height: 400px;
@@ -39,14 +51,16 @@
             z-index: 1;
         }
 
+        /* Header Styles */
         .header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.97);
             backdrop-filter: blur(10px);
             padding: 20px;
             border-radius: 15px;
             margin-bottom: 30px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .logo {
@@ -55,14 +69,14 @@
             gap: 15px;
             font-size: 2.5rem;
             font-weight: bold;
-            color: #2a5298;
+            color: var(--primary-color);
             margin-bottom: 10px;
         }
 
         .logo-icon {
             width: 50px;
             height: 50px;
-            background: #2a5298;
+            background: var(--primary-color);
             color: white;
             border-radius: 10px;
             display: flex;
@@ -71,11 +85,13 @@
             font-size: 24px;
         }
 
+        /* Navigation */
         .nav-buttons {
             display: flex;
             gap: 15px;
             justify-content: center;
             margin-top: 20px;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -88,10 +104,12 @@
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
+            text-align: center;
+            min-width: 120px;
         }
 
         .btn-primary {
-            background: linear-gradient(45deg, #2a5298, #1e3c72);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             color: white;
         }
 
@@ -102,23 +120,40 @@
 
         .btn-secondary {
             background: rgba(255, 255, 255, 0.2);
-            color: #2a5298;
-            border: 2px solid #2a5298;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
         }
 
         .btn-secondary:hover {
-            background: #2a5298;
+            background: var(--primary-color);
             color: white;
         }
 
+        .btn-success {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--warning-color);
+            color: var(--dark-color);
+        }
+
+        /* Sections */
         .section {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.97);
             backdrop-filter: blur(10px);
             padding: 30px;
             border-radius: 15px;
             margin-bottom: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             display: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .section.active {
@@ -131,6 +166,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Job Cards */
         .job-card {
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
             border: 1px solid #dee2e6;
@@ -146,10 +182,10 @@
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
+            right: 0;
             width: 4px;
             height: 100%;
-            background: linear-gradient(45deg, #2a5298, #1e3c72);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
         }
 
         .job-card:hover {
@@ -158,7 +194,7 @@
         }
 
         .job-title {
-            color: #2a5298;
+            color: var(--primary-color);
             font-size: 1.5rem;
             font-weight: bold;
             margin-bottom: 15px;
@@ -170,6 +206,22 @@
             color: #555;
         }
 
+        .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .job-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+        }
+
+        /* Forms */
         .form-group {
             margin-bottom: 20px;
         }
@@ -178,28 +230,26 @@
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
-            color: #2a5298;
+            color: var(--primary-color);
         }
 
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
+        .form-control {
             width: 100%;
             padding: 12px;
             border: 2px solid #e9ecef;
             border-radius: 8px;
             font-size: 16px;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
+            background-color: #fff;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
+        .form-control:focus {
             outline: none;
-            border-color: #2a5298;
+            border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
         }
 
+        /* Record Controls */
         .record-controls {
             display: flex;
             gap: 10px;
@@ -217,21 +267,37 @@
         }
 
         .record-btn.start {
-            background: #28a745;
+            background: var(--accent-color);
             color: white;
         }
 
         .record-btn.stop {
-            background: #dc3545;
+            background: var(--danger-color);
             color: white;
         }
 
+        .record-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Admin Panel */
         .admin-panel {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.97);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 30px;
             margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .applicant-card {
@@ -241,35 +307,29 @@
             padding: 20px;
             margin-bottom: 15px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .applicant-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .applicant-actions {
             display: flex;
             gap: 10px;
             margin-top: 15px;
+            flex-wrap: wrap;
         }
 
-        .btn-success {
-            background: #28a745;
-            color: white;
-        }
-
-        .btn-danger {
-            background: #dc3545;
-            color: white;
-        }
-
-        .btn-warning {
-            background: #ffc107;
-            color: #212529;
-        }
-
+        /* Login Form */
         .login-form {
             max-width: 400px;
             margin: 0 auto;
             text-align: center;
         }
 
+        /* Modal */
         .modal {
             position: fixed;
             top: 0;
@@ -281,6 +341,7 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            backdrop-filter: blur(5px);
         }
 
         .modal.active {
@@ -295,20 +356,44 @@
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--danger-color);
+        }
+
+        /* Audio Player */
         .audio-player {
             width: 100%;
             margin-top: 10px;
         }
 
+        /* Status Badges */
         .status-badge {
             display: inline-block;
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: bold;
-            margin-left: 10px;
+            margin-right: 10px;
         }
 
         .status-pending {
@@ -326,6 +411,116 @@
             color: #721c24;
         }
 
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-color);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            display: none;
+            z-index: 1100;
+            animation: slideIn 0.3s ease;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .notification.error {
+            background: var(--danger-color);
+        }
+
+        .notification.warning {
+            background: var(--warning-color);
+            color: var(--dark-color);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Loading */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Connection Status */
+        .connection-status {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 1100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .connection-status.online {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .connection-status.offline {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            color: white;
+            flex-wrap: wrap;
+            gap: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .nav-buttons {
                 flex-direction: column;
@@ -335,11 +530,38 @@
             .applicant-actions {
                 flex-direction: column;
             }
+
+            .stats-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .form-control {
+                padding: 10px;
+            }
+
+            .btn {
+                padding: 10px 15px;
+                min-width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <div class="logo-bg"></div>
+    
+    <!-- Notifications -->
+    <div id="notification" class="notification"></div>
+    
+    <!-- Connection Status -->
+    <div id="connectionStatus" class="connection-status offline">
+        غير متصل بالخادم
+    </div>
     
     <div class="container">
         <header class="header">
@@ -347,7 +569,7 @@
                 <div class="logo-icon">W</div>
                 WorkWise
             </div>
-            <p style="color: #666; font-size: 1.1rem;">منصتك المتخصصة للعثور على الوظيفة المثالية</p>
+            <p style="color: #666; font-size: 1.1rem;">منصة التوظيف العالمية - اتصل بأفضل الفرص حول العالم</p>
             
             <div class="nav-buttons">
                 <button class="btn btn-primary" onclick="showSection('jobs')">الوظائف المتاحة</button>
@@ -355,533 +577,741 @@
             </div>
         </header>
 
-        <!-- قسم الوظائف -->
+        <!-- Stats -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-number" id="totalApplications">0</span>
+                <span>إجمالي الطلبات</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="pendingApplications">0</span>
+                <span>قيد المراجعة</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="approvedApplications">0</span>
+                <span>مقبول</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="onlineUsers">1</span>
+                <span>متصل الآن</span>
+            </div>
+        </div>
+
+        <!-- Jobs Section -->
         <div id="jobs" class="section active">
-            <h2 style="text-align: center; color: #2a5298; margin-bottom: 30px; font-size: 2rem;">الوظائف المتاحة</h2>
+            <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 30px; font-size: 2rem;">الوظائف المتاحة عالمياً</h2>
             
-            <!-- وظيفة Concentrix -->
+            <!-- Concentrix Job -->
             <div class="job-card">
                 <h3 class="job-title">Customer Service Representatives - Concentrix</h3>
+                <div class="job-meta">
+                    <span class="job-meta-item">📍 مصر (6 أكتوبر - المعادي)</span>
+                    <span class="job-meta-item">🏢 عمل مكتبي</span>
+                    <span class="job-meta-item">💰 14,000 - 19,000 جنيه</span>
+                </div>
                 <div class="job-details">
                     <p><strong>المتطلبات:</strong></p>
-                    <p>• إتقان اللغة الإنجليزية B2 أو C1</p>
-                    <p>• خريجين فقط ومصريين الجنسية</p>
-                    <p>• الراتب من 14,000 إلى 19,000 جنيه + بدل ليلي + تدريب مدفوع</p>
-                    <p>• نظام الورديات دوراني 24/7 (ليلي بشكل أساسي)</p>
-                    <p>• 9 ساعات عمل شاملة ساعة راحة</p>
-                    <p>• تأمين طبي واجتماعي إجباري</p>
-                    <p><strong>المواقع:</strong></p>
-                    <p>• 6 أكتوبر - Palm Strip, حي المتميز (أمام جامعة MUST)</p>
-                    <p>• المعادي - Victoria Square</p>
+                    <ul style="padding-right: 20px;">
+                        <li>إتقان اللغة الإنجليزية B2 أو C1</li>
+                        <li>خريجين فقط ومصريين الجنسية</li>
+                        <li>الراتب من 14,000 إلى 19,000 جنيه + بدل ليلي + تدريب مدفوع</li>
+                        <li>نظام الورديات دوراني 24/7 (ليلي بشكل أساسي)</li>
+                        <li>9 ساعات عمل شاملة ساعة راحة</li>
+                        <li>تأمين طبي واجتماعي إجباري</li>
+                    </ul>
                 </div>
                 <button class="btn btn-primary" onclick="applyForJob('Concentrix Customer Service')">تقدم الآن</button>
             </div>
 
-            <!-- وظيفة Proof Health -->
+            <!-- Proof Health Job -->
             <div class="job-card">
                 <h3 class="job-title">Customer Service - Proof Health السعودية</h3>
+                <div class="job-meta">
+                    <span class="job-meta-item">🌐 عمل عن بُعد</span>
+                    <span class="job-meta-item">💰 8,000 جنيه</span>
+                    <span class="job-meta-item">⏰ 6 أيام أسبوعياً</span>
+                </div>
                 <div class="job-details">
-                    <p><strong>طبيعة العمل:</strong> أونلاين من المنزل</p>
                     <p><strong>المتطلبات:</strong></p>
-                    <p>• خبرة سابقة في خدمة العملاء أو المبيعات (سنتين على الأقل)</p>
-                    <p>• مهارات تواصل ممتازة وقدرة على التعامل مع العملاء</p>
-                    <p>• القدرة على العمل تحت الضغط</p>
-                    <p>• توفر لاب توب واتصال إنترنت مناسب</p>
-                    <p><strong>الراتب:</strong> 8,000 جنيه (5,000 ثابت + 3,000 تارجت شهري)</p>
-                    <p><strong>ساعات العمل:</strong> 6 أيام أسبوعياً، 9 ساعات يومياً</p>
-                    <p>• يُفضل سورية أو مصرية تتقن اللهجة الخليجية</p>
+                    <ul style="padding-right: 20px;">
+                        <li>خبرة سابقة في خدمة العملاء أو المبيعات (سنتين على الأقل)</li>
+                        <li>مهارات تواصل ممتازة وقدرة على التعامل مع العملاء</li>
+                        <li>القدرة على العمل تحت الضغط</li>
+                        <li>توفر لاب توب واتصال إنترنت مستقر</li>
+                        <li>الراتب: 8,000 جنيه (5,000 ثابت + 3,000 تارجت شهري)</li>
+                        <li>ساعات العمل: 6 أيام أسبوعياً، 9 ساعات يومياً</li>
+                        <li>يُفضل من يتقن اللهجة الخليجية</li>
+                    </ul>
                 </div>
                 <button class="btn btn-primary" onclick="applyForJob('Proof Health Customer Service')">تقدم الآن</button>
             </div>
 
-            <!-- وظيفة HSBC -->
+            <!-- HSBC Job -->
             <div class="job-card">
                 <h3 class="job-title">HSBC Call Center</h3>
+                <div class="job-meta">
+                    <span class="job-meta-item">📍 مصر (Smart Village)</span>
+                    <span class="job-meta-item">🏢 عمل مكتبي</span>
+                    <span class="job-meta-item">💰 حتى 15,700 جنيه</span>
+                </div>
                 <div class="job-details">
                     <p><strong>المتطلبات:</strong></p>
-                    <p>• إتقان اللغة الإنجليزية (مستوى B2+)</p>
-                    <p>• ذكور وإناث (الحد الأقصى للعمر: 35 سنة)</p>
-                    <p>• خريجين فقط / مصريين فقط</p>
-                    <p>• لا تتطلب خبرة (حد أقصى سنتين بعد التخرج)</p>
+                    <ul style="padding-right: 20px;">
+                        <li>إتقان اللغة الإنجليزية (مستوى B2+)</li>
+                        <li>ذكور وإناث (الحد الأقصى للعمر: 35 سنة)</li>
+                        <li>خريجين فقط / مصريين فقط</li>
+                        <li>لا تتطلب خبرة (حد أقصى سنتين بعد التخرج)</li>
+                    </ul>
                     <p><strong>المزايا:</strong></p>
-                    <p>• الراتب: حتى 15,700 جنيه (إجمالي)</p>
-                    <p>• تدريب مدفوع</p>
-                    <p>• تأمين طبي واجتماعي إجباري</p>
-                    <p>• توفير مواصلات</p>
-                    <p><strong>موقع العمل:</strong> Smart Village</p>
-                    <p><strong>نظام العمل:</strong> 5 أيام عمل، ورديات دورانية، 9 ساعات شاملة ساعة راحة</p>
+                    <ul style="padding-right: 20px;">
+                        <li>الراتب: حتى 15,700 جنيه (إجمالي)</li>
+                        <li>تدريب مدفوع + تأمين طبي واجتماعي</li>
+                        <li>توفير مواصلات</li>
+                        <li>نظام العمل: 5 أيام عمل، ورديات دورانية، 9 ساعات شاملة ساعة راحة</li>
+                    </ul>
                 </div>
                 <button class="btn btn-primary" onclick="applyForJob('HSBC Call Center')">تقدم الآن</button>
             </div>
 
-            <!-- وظيفة Real Estate -->
+            <!-- Real Estate Job -->
             <div class="job-card">
                 <h3 class="job-title">Real Estate Acquisition Specialist</h3>
+                <div class="job-meta">
+                    <span class="job-meta-item">🌍 عمل عن بُعد عالمياً</span>
+                    <span class="job-meta-item">💰 4.2$ للساعة + عمولة</span>
+                    <span class="job-meta-item">⏰ التوقيت الأمريكي</span>
+                </div>
                 <div class="job-details">
-                    <p><strong>طبيعة العمل:</strong> العمل من المنزل بالكامل</p>
                     <p><strong>المتطلبات:</strong></p>
-                    <p>• مستوى إنجليزية قوي B2</p>
-                    <p>• خبرة لا تقل عن 6 أشهر في المبيعات (يُفضل العقارات)</p>
-                    <p>• خبرة في المكالمات الباردة وتحديد المواعيد</p>
-                    <p>• اتصال إنترنت مستقر وكمبيوتر شخصي وسماعة</p>
+                    <ul style="padding-right: 20px;">
+                        <li>مستوى إنجليزية قوي B2+</li>
+                        <li>خبرة لا تقل عن 6 أشهر في المبيعات (يُفضل العقارات)</li>
+                        <li>خبرة في المكالمات الباردة وتحديد المواعيد</li>
+                        <li>اتصال إنترنت مستقر وكمبيوتر شخصي وسماعة</li>
+                    </ul>
                     <p><strong>المزايا:</strong></p>
-                    <p>• الراتب: 4.2$ للساعة + عمولة بالدولار</p>
-                    <p>• 40 ساعة أسبوعياً</p>
-                    <p>• التوقيت: المناطق الزمنية الأمريكية</p>
-                    <p>• 5 أيام عمل + يومين راحة</p>
+                    <ul style="padding-right: 20px;">
+                        <li>الراتب: 4.2$ للساعة + عمولة بالدولار</li>
+                        <li>40 ساعة أسبوعياً (8 ساعات يومياً)</li>
+                        <li>5 أيام عمل + يومين راحة</li>
+                    </ul>
                     <p><strong>المسؤوليات:</strong></p>
-                    <p>• متابعة عملاء PPC</p>
-                    <p>• جمع وتأكيد المعلومات من أصحاب المنازل</p>
-                    <p>• بناء علاقات مع العملاء المحتملين</p>
+                    <ul style="padding-right: 20px;">
+                        <li>متابعة عملاء PPC والتسويق الرقمي</li>
+                        <li>جمع وتأكيد المعلومات من أصحاب المنازل</li>
+                        <li>بناء علاقات مع العملاء المحتملين</li>
+                    </ul>
                 </div>
                 <button class="btn btn-primary" onclick="applyForJob('Real Estate Acquisition')">تقدم الآن</button>
             </div>
         </div>
 
-        <!-- نموذج تسجيل الدخول -->
+        <!-- Login Section -->
         <div id="login" class="section">
             <div class="login-form">
-                <h2 style="color: #2a5298; margin-bottom: 30px;">تسجيل دخول الموظفين</h2>
+                <h2 style="color: var(--primary-color); margin-bottom: 30px;">🔐 لوحة الموظفين العالمية</h2>
+                <p style="color: #666; margin-bottom: 20px;">ادخل للوصول إلى جميع طلبات التقديم من حول العالم</p>
+                <div class="form-group">
+                    <label>اسم المستخدم:</label>
+                    <input type="text" id="adminUsername" class="form-control" placeholder="أدخل اسم المستخدم">
+                </div>
                 <div class="form-group">
                     <label>كلمة المرور:</label>
-                    <input type="password" id="adminPassword" placeholder="أدخل كلمة المرور">
+                    <input type="password" id="adminPassword" class="form-control" placeholder="أدخل كلمة المرور">
                 </div>
-                <button class="btn btn-primary" onclick="adminLogin()">دخول</button>
+                <button class="btn btn-primary" onclick="adminLogin()">🚀 دخول</button>
             </div>
         </div>
 
-        <!-- لوحة الإدارة -->
+        <!-- Admin Section -->
         <div id="admin" class="section">
             <div class="admin-panel">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-                    <h2 style="color: #2a5298;">لوحة إدارة المتقدمين</h2>
-                    <button class="btn btn-secondary" onclick="logout()">تسجيل خروج</button>
+                <div class="admin-header">
+                    <h2 style="color: var(--primary-color);">🌍 لوحة إدارة المتقدمين العالمية</h2>
+                    <div>
+                        <button class="btn btn-primary" onclick="refreshData()" style="margin-left: 10px;">🔄 تحديث فوري</button>
+                        <button class="btn btn-secondary" onclick="logout()">🚪 خروج</button>
+                    </div>
+                </div>
+                
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>تصفية حسب الحالة:</label>
+                        <select id="statusFilter" class="form-control" onchange="filterApplicants()">
+                            <option value="all">جميع الطلبات</option>
+                            <option value="pending">قيد المراجعة</option>
+                            <option value="approved">مقبول</option>
+                            <option value="rejected">مرفوض</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>تصفية حسب الوظيفة:</label>
+                        <select id="jobFilter" class="form-control" onchange="filterApplicants()">
+                            <option value="all">جميع الوظائف</option>
+                            <option value="Concentrix Customer Service">Concentrix</option>
+                            <option value="Proof Health Customer Service">Proof Health</option>
+                            <option value="HSBC Call Center">HSBC</option>
+                            <option value="Real Estate Acquisition">Real Estate</option>
+                        </select>
+                    </div>
                 </div>
                 
                 <div id="applicantsList">
-                    <!-- سيتم عرض المتقدمين هنا -->
+                    <div style="text-align: center; padding: 40px;">
+                        <div class="loading"></div>
+                        <p>جاري تحميل البيانات من الخادم العالمي...</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- نافذة التقديم -->
+    <!-- Application Modal -->
     <div id="applicationModal" class="modal">
         <div class="modal-content">
-            <h3 id="modalJobTitle" style="color: #2a5298; margin-bottom: 20px;"></h3>
+            <div class="modal-header">
+                <h3 id="modalJobTitle" class="modal-title"></h3>
+                <button class="close-modal" onclick="closeModal()">×</button>
+            </div>
             <form id="applicationForm">
                 <div class="form-group">
                     <label>الاسم الكامل *</label>
-                    <input type="text" id="applicantName" required>
+                    <input type="text" id="applicantName" class="form-control" required>
                 </div>
                 
                 <div class="form-group">
                     <label>البريد الإلكتروني *</label>
-                    <input type="email" id="applicantEmail" required>
+                    <input type="email" id="applicantEmail" class="form-control" required>
                 </div>
                 
                 <div class="form-group">
-                    <label>رقم الهاتف *</label>
-                    <input type="tel" id="applicantPhone" required>
+                    <label>رقم الهاتف (مع رمز الدولة) *</label>
+                    <input type="tel" id="applicantPhone" class="form-control" placeholder="+20 1234567890" required>
+                </div>
+
+                <div class="form-group">
+                    <label>الدولة/المنطقة *</label>
+                    <select id="applicantCountry" class="form-control" required>
+                        <option value="">اختر دولتك</option>
+                        <option value="مصر">🇪🇬 مصر</option>
+                        <option value="السعودية">🇸🇦 السعودية</option>
+                        <option value="الإمارات">🇦🇪 الإمارات</option>
+                        <option value="الكويت">🇰🇼 الكويت</option>
+                        <option value="قطر">🇶🇦 قطر</option>
+                        <option value="الأردن">🇯🇴 الأردن</option>
+                        <option value="لبنان">🇱🇧 لبنان</option>
+                        <option value="سوريا">🇸🇾 سوريا</option>
+                        <option value="العراق">🇮🇶 العراق</option>
+                        <option value="المغرب">🇲🇦 المغرب</option>
+                        <option value="تونس">🇹🇳 تونس</option>
+                        <option value="الجزائر">🇩🇿 الجزائر</option>
+                        <option value="ليبيا">🇱🇾 ليبيا</option>
+                        <option value="السودان">🇸🇩 السودان</option>
+                        <option value="أخرى">🌍 دولة أخرى</option>
+                    </select>
                 </div>
                 
                 <div class="form-group" id="photoGroup" style="display: none;">
                     <label>الصورة الشخصية *</label>
-                    <input type="file" id="applicantPhoto" accept="image/*">
+                    <input type="file" id="applicantPhoto" class="form-control" accept="image/*">
                 </div>
                 
                 <div class="form-group">
-                    <label>الخبرات والملاحظات *</label>
-                    <textarea id="applicantExperience" rows="4" placeholder="اكتب خبراتك ومؤهلاتك..." required></textarea>
+                    <label>الخبرات والمؤهلات *</label>
+                    <textarea id="applicantExperience" class="form-control" rows="4" placeholder="اكتب خبراتك، مؤهلاتك، ولماذا أنت مناسب لهذه الوظيفة..." required></textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label>تسجيل صوتي للتعريف بنفسك *</label>
+                    <label>تسجيل صوتي للتعريف بنفسك (باللغة الإنجليزية أو العربية) *</label>
                     <div class="record-controls">
-                        <button type="button" class="record-btn start" id="startRecord" onclick="startRecording()">بدء التسجيل</button>
-                        <button type="button" class="record-btn stop" id="stopRecord" onclick="stopRecording()" disabled>إيقاف التسجيل</button>
+                        <button type="button" class="record-btn start" id="startRecord" onclick="startRecording()">🎤 بدء التسجيل</button>
+                        <button type="button" class="record-btn stop" id="stopRecord" onclick="stopRecording()" disabled>⏹ إيقاف</button>
                         <span id="recordingTime">00:00</span>
                     </div>
                     <audio id="audioPreview" class="audio-player" controls style="display: none;"></audio>
                 </div>
                 
                 <div style="display: flex; gap: 10px; justify-content: center; margin-top: 30px;">
-                    <button type="submit" class="btn btn-primary">إرسال التقديم</button>
-                    <button type="button" class="btn btn-secondary" onclick="closeModal()">إلغاء</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">🚀 إرسال التقديم عالمياً</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">❌ إلغاء</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <!-- Applicant Details Modal -->
+    <div id="applicantModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="applicantModalTitle" class="modal-title">تفاصيل المتقدم</h3>
+                <button class="close-modal" onclick="closeApplicantModal()">×</button>
+            </div>
+            <div id="applicantModalContent">
+                <!-- Content will be filled dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+
     <script>
-        // حل حقيقي لمشاركة البيانات عبر الأجهزة المختلفة
-        // استخدام Firebase Realtime Database (محاكاة)
-        const DATABASE_URL = 'https://workwise-jobs-default-rtdb.firebaseio.com/';
-        
-        // محاكاة قاعدة بيانات سحابية
-        class CloudDatabase {
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBrXm8nBfH3gNJ7KH8RLx6X5K5xZq8QfGw",
+            authDomain: "workwise-global-jobs.firebaseapp.com",
+            databaseURL: "https://workwise-global-jobs-default-rtdb.firebaseio.com",
+            projectId: "workwise-global-jobs",
+            storageBucket: "workwise-global-jobs.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abc123def456"
+        };
+
+        // Initialize Firebase
+        let database;
+        let storage;
+        let isFirebaseConnected = false;
+
+        try {
+            const app = firebase.initializeApp(firebaseConfig);
+            database = firebase.database();
+            storage = firebase.storage();
+            isFirebaseConnected = true;
+            updateConnectionStatus(true);
+            
+            // Listen for connection status
+            database.ref('.info/connected').on('value', (snapshot) => {
+                updateConnectionStatus(snapshot.val() === true);
+            });
+        } catch (error) {
+            console.warn('فشل الاتصال بـ Firebase، سيتم استخدام النظام المحلي:', error);
+            isFirebaseConnected = false;
+            updateConnectionStatus(false);
+        }
+
+        // Global Job Application System
+        class GlobalJobSystem {
             constructor() {
-                this.data = {};
+                this.applicants = [];
                 this.listeners = [];
-                // محاكاة البيانات المحفوظة في السحابة
-                this.loadFromCloud();
+                this.localStorageKey = 'workwise_global_applications';
+                this.init();
             }
 
-            async loadFromCloud() {
-                // في الواقع هذه ستكون API call حقيقية
-                // محاكاة تحميل البيانات من الخادم
-                try {
-                    const response = await fetch(`${DATABASE_URL}/applicants.json`);
-                    if (response.ok) {
-                        const data = await response.json();
-                        this.data.applicants = data ? Object.values(data) : [];
-                    } else {
-                        this.data.applicants = [];
-                    }
-                } catch (error) {
-                    // fallback للبيانات المحلية
-                    this.data.applicants = [];
-                    console.log('استخدام البيانات المحلية كبديل');
-                }
-                this.notifyListeners();
-            }
-
-            async saveToCloud(data) {
-                // محاكاة حفظ البيانات في السحابة
-                try {
-                    const response = await fetch(`${DATABASE_URL}/applicants.json`, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(this.arrayToObject(data))
+            async init() {
+                if (isFirebaseConnected) {
+                    // Listen for real-time updates from Firebase
+                    database.ref('applications').on('value', (snapshot) => {
+                        this.applicants = snapshot.val() || [];
+                        this.notifyListeners();
+                        this.updateStats();
                     });
-                    return response.ok;
-                } catch (error) {
-                    console.log('خطأ في حفظ البيانات:', error);
-                    return false;
+                } else {
+                    // Fallback to localStorage when offline
+                    const savedData = localStorage.getItem(this.localStorageKey);
+                    this.applicants = savedData ? JSON.parse(savedData) : [];
+                    this.updateStats();
                 }
             }
 
-            arrayToObject(arr) {
-                const obj = {};
-                arr.forEach((item, index) => {
-                    obj[item.id || index] = item;
-                });
-                return obj;
+            async addApplication(application) {
+                const newApplication = {
+                    ...application,
+                    id: Date.now().toString(),
+                    status: 'pending',
+                    timestamp: new Date().toISOString()
+                };
+
+                this.applicants.unshift(newApplication);
+                
+                if (isFirebaseConnected) {
+                    try {
+                        // Upload audio file to Firebase Storage if it's a Blob
+                        if (application.audioBlob) {
+                            const audioRef = storage.ref(`applications/${newApplication.id}.mp3`);
+                            await audioRef.put(application.audioBlob);
+                            const audioUrl = await audioRef.getDownloadURL();
+                            newApplication.audioUrl = audioUrl;
+                        }
+
+                        await database.ref('applications').set(this.applicants);
+                        this.notifyListeners();
+                    } catch (error) {
+                        console.error('Error uploading to Firebase:', error);
+                        localStorage.setItem(this.localStorageKey, JSON.stringify(this.applicants));
+                    }
+                } else {
+                    localStorage.setItem(this.localStorageKey, JSON.stringify(this.applicants));
+                }
+
+                this.updateStats();
+                return newApplication;
             }
 
-            async addApplicant(applicant) {
-                this.data.applicants = this.data.applicants || [];
-                this.data.applicants.push(applicant);
-                await this.saveToCloud(this.data.applicants);
-                this.notifyListeners();
-            }
-
-            async updateApplicant(id, updates) {
-                const index = this.data.applicants.findIndex(app => app.id === id);
+            updateApplicationStatus(id, status) {
+                const index = this.applicants.findIndex(app => app.id === id);
                 if (index !== -1) {
-                    Object.assign(this.data.applicants[index], updates);
-                    await this.saveToCloud(this.data.applicants);
-                    this.notifyListeners();
+                    this.applicants[index].status = status;
+                    
+                    if (isFirebaseConnected) {
+                        database.ref('applications').set(this.applicants)
+                            .then(() => this.notifyListeners())
+                            .catch(() => {
+                                localStorage.setItem(this.localStorageKey, JSON.stringify(this.applicants));
+                            });
+                    } else {
+                        localStorage.setItem(this.localStorageKey, JSON.stringify(this.applicants));
+                    }
+
+                    this.updateStats();
+                    return true;
                 }
+                return false;
             }
 
-            async deleteApplicant(id) {
-                this.data.applicants = this.data.applicants.filter(app => app.id !== id);
-                await this.saveToCloud(this.data.applicants);
-                this.notifyListeners();
-            }
-
-            getApplicants() {
-                return this.data.applicants || [];
-            }
-
-            onDataChange(callback) {
+            addListener(callback) {
                 this.listeners.push(callback);
+                return () => {
+                    this.listeners = this.listeners.filter(l => l !== callback);
+                };
             }
 
             notifyListeners() {
-                this.listeners.forEach(callback => callback(this.data.applicants));
+                this.listeners.forEach(callback => callback(this.applicants));
             }
 
-            // تحديث البيانات كل 5 ثوانِ
-            startRealTimeSync() {
-                setInterval(() => {
-                    this.loadFromCloud();
-                }, 5000);
+            updateStats() {
+                document.getElementById('totalApplications').textContent = this.applicants.length;
+                document.getElementById('pendingApplications').textContent = this.applicants.filter(a => a.status === 'pending').length;
+                document.getElementById('approvedApplications').textContent = this.applicants.filter(a => a.status === 'approved').length;
+            }
+
+            filterApplicants(statusFilter, jobFilter) {
+                let filtered = [...this.applicants];
+                
+                if (statusFilter !== 'all') {
+                    filtered = filtered.filter(app => app.status === statusFilter);
+                }
+                
+                if (jobFilter !== 'all') {
+                    filtered = filtered.filter(app => app.jobTitle === jobFilter);
+                }
+                
+                return filtered;
             }
         }
 
-        // إنشاء قاعدة البيانات السحابية
-        const cloudDB = new CloudDatabase();
-        cloudDB.startRealTimeSync();
+        // Initialize the global job system
+        const jobSystem = new GlobalJobSystem();
 
-        // البيانات المحلية
-        let applicants = [];
-        // بيانات التطبيق
-        let currentJob = '';
-        let isRecording = false;
+        // Variables for audio recording
         let mediaRecorder;
         let audioChunks = [];
         let recordingInterval;
-        let recordingStartTime;
+        let secondsRecording = 0;
+        let audioBlob = null;
 
-        // عرض الأقسام
+        // Page Functions
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(section => {
                 section.classList.remove('active');
             });
             document.getElementById(sectionId).classList.add('active');
-        }
-
-        // التقديم على وظيفة
-        function applyForJob(jobTitle) {
-            currentJob = jobTitle;
-            document.getElementById('modalJobTitle').textContent = 'التقديم على: ' + jobTitle;
             
-            // إظهار أو إخفاء حقل الصورة حسب الوظيفة
-            const photoGroup = document.getElementById('photoGroup');
-            const photoInput = document.getElementById('applicantPhoto');
-            
-            if (jobTitle === 'HSBC Call Center') {
-                photoGroup.style.display = 'block';
-                photoInput.required = true;
-            } else {
-                photoGroup.style.display = 'none';
-                photoInput.required = false;
+            if (sectionId === 'admin') {
+                loadApplicants();
             }
-            
-            document.getElementById('applicationModal').classList.add('active');
         }
 
-        // إغلاق النافذة المنبثقة
+        function applyForJob(jobTitle) {
+            document.getElementById('modalJobTitle').textContent = jobTitle;
+            document.getElementById('applicationModal').classList.add('active');
+            document.getElementById('photoGroup').style.display = jobTitle.includes('Concentrix') ? 'block' : 'none';
+            resetApplicationForm();
+        }
+
         function closeModal() {
             document.getElementById('applicationModal').classList.remove('active');
-            document.getElementById('applicationForm').reset();
             stopRecording();
         }
 
-        // بدء التسجيل الصوتي
+        function closeApplicantModal() {
+            document.getElementById('applicantModal').classList.remove('active');
+        }
+
+        function resetApplicationForm() {
+            document.getElementById('applicationForm').reset();
+            document.getElementById('audioPreview').style.display = 'none';
+            document.getElementById('audioPreview').src = '';
+            audioChunks = [];
+            audioBlob = null;
+            secondsRecording = 0;
+            document.getElementById('recordingTime').textContent = '00:00';
+        }
+
         async function startRecording() {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 mediaRecorder = new MediaRecorder(stream);
-                audioChunks = [];
-
-                mediaRecorder.ondataavailable = (event) => {
-                    audioChunks.push(event.data);
+                mediaRecorder.start();
+                
+                mediaRecorder.ondataavailable = e => {
+                    audioChunks.push(e.data);
                 };
-
+                
                 mediaRecorder.onstop = () => {
-                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
                     const audioUrl = URL.createObjectURL(audioBlob);
                     const audioPreview = document.getElementById('audioPreview');
                     audioPreview.src = audioUrl;
                     audioPreview.style.display = 'block';
+                    
+                    // Stop all tracks
+                    stream.getTracks().forEach(track => track.stop());
                 };
-
-                mediaRecorder.start();
-                isRecording = true;
-                recordingStartTime = Date.now();
                 
                 document.getElementById('startRecord').disabled = true;
                 document.getElementById('stopRecord').disabled = false;
                 
-                // عداد الوقت
-                recordingInterval = setInterval(updateRecordingTime, 1000);
-                
-            } catch (error) {
-                alert('لا يمكن الوصول للميكروفون. تأكد من السماح بالوصول.');
+                secondsRecording = 0;
+                recordingInterval = setInterval(() => {
+                    secondsRecording++;
+                    const minutes = Math.floor(secondsRecording / 60).toString().padStart(2, '0');
+                    const seconds = (secondsRecording % 60).toString().padStart(2, '0');
+                    document.getElementById('recordingTime').textContent = `${minutes}:${seconds}`;
+                }, 1000);
+            } catch (err) {
+                showNotification('لا يمكن الوصول إلى الميكروفون. يرجى التحقق من الأذونات.', 'error');
+                console.error('Recording error:', err);
             }
         }
 
-        // إيقاف التسجيل
         function stopRecording() {
-            if (mediaRecorder && isRecording) {
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
                 mediaRecorder.stop();
-                mediaRecorder.stream.getTracks().forEach(track => track.stop());
-                isRecording = false;
-                
+                clearInterval(recordingInterval);
                 document.getElementById('startRecord').disabled = false;
                 document.getElementById('stopRecord').disabled = true;
-                
-                clearInterval(recordingInterval);
             }
         }
 
-        // تحديث وقت التسجيل
-        function updateRecordingTime() {
-            if (isRecording) {
-                const elapsed = Math.floor((Date.now() - recordingStartTime) / 1000);
-                const minutes = Math.floor(elapsed / 60);
-                const seconds = elapsed % 60;
-                document.getElementById('recordingTime').textContent = 
-                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            }
-        }
-
-        // إرسال التقديم
-        document.getElementById('applicationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const audioPreview = document.getElementById('audioPreview');
-            if (!audioPreview.src) {
-                alert('يجب تسجيل مقطع صوتي للتعريف بنفسك');
-                return;
-            }
-
-            // التحقق من الصورة إذا كانت مطلوبة
-            const photoInput = document.getElementById('applicantPhoto');
-            if (photoInput.required && !photoInput.files[0]) {
-                alert('يجب رفع صورة شخصية لهذه الوظيفة');
-                return;
-            }
-
-            const formData = {
-                id: Date.now(),
-                jobTitle: currentJob,
-                name: document.getElementById('applicantName').value,
-                email: document.getElementById('applicantEmail').value,
-                phone: document.getElementById('applicantPhone').value,
-                photo: photoInput.files[0] ? photoInput.files[0].name : null,
-                experience: document.getElementById('applicantExperience').value,
-                audioRecording: 'تسجيل صوتي مرفق',
-                status: 'pending',
-                appliedAt: new Date().toLocaleString('ar-EG')
-            };
-
-            // إضافة المتقدم لقاعدة البيانات السحابية
-            await cloudDB.addApplicant(formData);
-            
-            alert('تم إرسال طلب التقديم بنجاح! سيتم مراجعته والرد عليك قريباً.');
-            closeModal();
-        });
-
-        // تسجيل دخول الإدارة
         function adminLogin() {
+            const username = document.getElementById('adminUsername').value;
             const password = document.getElementById('adminPassword').value;
-            if (password === 'workwise123456') {
+            
+            if (username === 'admin' && password === 'WorkWiseAdmin2024') {
                 showSection('admin');
-                loadApplicants();
+                showNotification('تم تسجيل الدخول بنجاح!', 'success');
             } else {
-                alert('كلمة المرور غير صحيحة');
+                showNotification('بيانات الدخول غير صحيحة!', 'error');
             }
         }
 
-        // تسجيل خروج
         function logout() {
             showSection('jobs');
+            document.getElementById('adminUsername').value = '';
             document.getElementById('adminPassword').value = '';
+            showNotification('تم تسجيل الخروج بنجاح', 'success');
         }
 
-        // تحميل المتقدمين من قاعدة البيانات السحابية
         function loadApplicants() {
             const applicantsList = document.getElementById('applicantsList');
-            const currentApplicants = cloudDB.getApplicants();
+            applicantsList.innerHTML = '<div style="text-align: center; padding: 40px;"><div class="loading"></div><p>جاري تحميل البيانات من الخادم العالمي...</p></div>';
             
-            if (currentApplicants.length === 0) {
-                applicantsList.innerHTML = '<p style="text-align: center; color: #666;">لا توجد طلبات تقديم حتى الآن</p>';
+            jobSystem.addListener(applicants => {
+                renderApplicants(applicants);
+            });
+        }
+
+        function renderApplicants(applicants) {
+            const applicantsList = document.getElementById('applicantsList');
+            const statusFilter = document.getElementById('statusFilter').value;
+            const jobFilter = document.getElementById('jobFilter').value;
+            
+            const filteredApplicants = jobSystem.filterApplicants(statusFilter, jobFilter);
+            
+            if (filteredApplicants.length === 0) {
+                applicantsList.innerHTML = '<div style="text-align: center; padding: 40px; color: #666;">لا توجد طلبات تقديم تطابق معايير البحث</div>';
                 return;
             }
-
-            applicantsList.innerHTML = currentApplicants.map(applicant => `
-                <div class="applicant-card">
-                    <div style="display: flex; justify-content: between; align-items: start; margin-bottom: 15px;">
-                        <div>
-                            <h4 style="color: #2a5298; margin-bottom: 5px;">${applicant.name}</h4>
-                            <p style="color: #666; font-size: 14px;">تقدم على: ${applicant.jobTitle}</p>
-                            <span class="status-badge status-${applicant.status}">
-                                ${applicant.status === 'pending' ? 'قيد المراجعة' : 
-                                  applicant.status === 'approved' ? 'مقبول' : 'مرفوض'}
-                            </span>
-                        </div>
-                        ${applicant.photo ? `
-                        <div style="margin-right: 20px;">
-                            <strong>الصورة الشخصية:</strong><br>
-                            <div style="width: 80px; height: 80px; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-top: 5px;">
-                                📷 ${applicant.photo}
-                            </div>
-                        </div>
-                        ` : ''}
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
-                        <div>
-                            <strong>البريد الإلكتروني:</strong><br>
-                            <a href="mailto:${applicant.email}">${applicant.email}</a>
-                        </div>
-                        <div>
-                            <strong>رقم الهاتف:</strong><br>
-                            <a href="tel:${applicant.phone}">${applicant.phone}</a>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-bottom: 15px;">
-                        <strong>الخبرات والملاحظات:</strong><br>
-                        <p style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin-top: 5px;">${applicant.experience}</p>
-                    </div>
-                    
-                    <div style="margin-bottom: 15px;">
-                        <strong>تاريخ التقديم:</strong> ${applicant.appliedAt}
-                    </div>
+            
+            applicantsList.innerHTML = '';
+            
+            filteredApplicants.forEach(applicant => {
+                const statusClass = {
+                    'pending': 'status-pending',
+                    'approved': 'status-approved',
+                    'rejected': 'status-rejected'
+                }[applicant.status];
+                
+                const statusText = {
+                    'pending': 'قيد المراجعة',
+                    'approved': 'مقبول',
+                    'rejected': 'مرفوض'
+                }[applicant.status];
+                
+                const applicantCard = document.createElement('div');
+                applicantCard.className = 'applicant-card';
+                applicantCard.innerHTML = `
+                    <h3>${applicant.name}</h3>
+                    <p><strong>الوظيفة:</strong> ${applicant.jobTitle}</p>
+                    <p><strong>البريد:</strong> ${applicant.email}</p>
+                    <p><strong>الهاتف:</strong> ${applicant.phone}</p>
+                    <p><strong>الدولة:</strong> ${applicant.country}</p>
+                    <p><strong>التاريخ:</strong> ${new Date(applicant.timestamp).toLocaleString('ar-EG')}</p>
+                    <p><strong>الحالة:</strong> <span class="status-badge ${statusClass}">${statusText}</span></p>
                     
                     <div class="applicant-actions">
-                        <button class="btn btn-success" onclick="updateStatus(${applicant.id}, 'approved')" 
-                                ${applicant.status === 'approved' ? 'disabled' : ''}>
-                            ✓ قبول
-                        </button>
-                        <button class="btn btn-danger" onclick="updateStatus(${applicant.id}, 'rejected')"
-                                ${applicant.status === 'rejected' ? 'disabled' : ''}>
-                            ✗ رفض
-                        </button>
-                        <button class="btn btn-warning" onclick="deleteApplicant(${applicant.id})">
-                            🗑 حذف
-                        </button>
+                        <button class="btn btn-success" onclick="updateStatus('${applicant.id}', 'approved')">✅ قبول</button>
+                        <button class="btn btn-danger" onclick="updateStatus('${applicant.id}', 'rejected')">❌ رفض</button>
+                        <button class="btn btn-warning" onclick="viewApplicantDetails('${applicant.id}')">👁 التفاصيل</button>
                     </div>
-                </div>
-            `).join('');
-        }
-
-        // تحديث حالة المتقدم في قاعدة البيانات السحابية
-        async function updateStatus(applicantId, newStatus) {
-            await cloudDB.updateApplicant(applicantId, { status: newStatus });
-            const statusText = newStatus === 'approved' ? 'تم قبول' : 'تم رفض';
-            alert(`${statusText} المتقدم بنجاح`);
-        }
-
-        // حذف متقدم من قاعدة البيانات السحابية
-        async function deleteApplicant(applicantId) {
-            if (confirm('هل أنت متأكد من حذف هذا المتقدم؟')) {
-                await cloudDB.deleteApplicant(applicantId);
-                alert('تم حذف المتقدم بنجاح');
-            }
-        }
-
-        // إغلاق النافذة عند النقر خارجها
-        document.getElementById('applicationModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-
-        // تحميل البيانات عند تحميل الصفحة وربطها بالتحديث الفوري
-        document.addEventListener('DOMContentLoaded', function() {
-            // تحديث البيانات عند تغييرها في قاعدة البيانات
-            cloudDB.onDataChange((updatedApplicants) => {
-                applicants = updatedApplicants;
-                if (document.getElementById('admin').classList.contains('active')) {
-                    loadApplicants();
-                }
+                `;
+                
+                applicantsList.appendChild(applicantCard);
             });
-            
-            console.log('الموقع جاهز - قاعدة البيانات السحابية متصلة');
-        });
-    </script>
+        }
 
-    <!-- Footer -->
-    <footer style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); color: white; text-align: center; padding: 20px; margin-top: 50px; border-radius: 15px;">
-        <p style="margin: 0; font-size: 14px; opacity: 0.8;">
-            إنشاء المهندس أحمد التركي
-        </p>
-    </footer>
+        function filterApplicants() {
+            renderApplicants(jobSystem.applicants);
+        }
+
+        function updateStatus(id, status) {
+            if (jobSystem.updateApplicationStatus(id, status)) {
+                showNotification('تم تحديث حالة الطلب بنجاح', 'success');
+            } else {
+                showNotification('حدث خطأ أثناء تحديث الحالة', 'error');
+            }
+        }
+
+        function viewApplicantDetails(id) {
+            const applicant = jobSystem.applicants.find(app => app.id === id);
+            if (!applicant) return;
+            
+            const modalContent = document.getElementById('applicantModalContent');
+            modalContent.innerHTML = `
+                <div class="applicant-details">
+                    <p><strong>الاسم:</strong> ${applicant.name}</p>
+                    <p><strong>الوظيفة:</strong> ${applicant.jobTitle}</p>
+                    <p><strong>البريد الإلكتروني:</strong> ${applicant.email}</p>
+                    <p><strong>رقم الهاتف:</strong> ${applicant.phone}</p>
+                    <p><strong>الدولة:</strong> ${applicant.country}</p>
+                    <p><strong>تاريخ التقديم:</strong> ${new Date(applicant.timestamp).toLocaleString('ar-EG')}</p>
+                    <p><strong>الحالة:</strong> <span class="status-badge ${applicant.status === 'pending' ? 'status-pending' : applicant.status === 'approved' ? 'status-approved' : 'status-rejected'}">
+                        ${applicant.status === 'pending' ? 'قيد المراجعة' : applicant.status === 'approved' ? 'مقبول' : 'مرفوض'}
+                    </span></p>
+                    
+                    <div style="margin-top: 20px;">
+                        <h4 style="color: var(--primary-color);">الخبرات والمؤهلات:</h4>
+                        <p>${applicant.experience}</p>
+                    </div>
+                    
+                    ${applicant.audioUrl ? `
+                    <div style="margin-top: 20px;">
+                        <h4 style="color: var(--primary-color);">التسجيل الصوتي:</h4>
+                        <audio src="${applicant.audioUrl}" controls class="audio-player"></audio>
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+            
+            document.getElementById('applicantModal').classList.add('active');
+        }
+
+        function refreshData() {
+            showNotification('جاري تحديث البيانات...', 'warning');
+            jobSystem.init();
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+        }
+
+        function updateConnectionStatus(isConnected) {
+            const statusElement = document.getElementById('connectionStatus');
+            if (isConnected) {
+                statusElement.textContent = 'متصل بالخادم العالمي';
+                statusElement.className = 'connection-status online';
+            } else {
+                statusElement.textContent = 'غير متصل بالخادم - العمل بالنظام المحلي';
+                statusElement.className = 'connection-status offline';
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('applicationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const jobTitle = document.getElementById('modalJobTitle').textContent;
+            const name = document.getElementById('applicantName').value;
+            const email = document.getElementById('applicantEmail').value;
+            const phone = document.getElementById('applicantPhone').value;
+            const country = document.getElementById('applicantCountry').value;
+            const experience = document.getElementById('applicantExperience').value;
+            const audioPreview = document.getElementById('audioPreview');
+            
+            if (!audioPreview.src) {
+                showNotification('يجب تسجيل مقدمة صوتية', 'error');
+                return;
+            }
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'جاري الإرسال... <div class="loading"></div>';
+            
+            try {
+                const application = {
+                    jobTitle,
+                    name,
+                    email,
+                    phone,
+                    country,
+                    experience,
+                    audioBlob: audioBlob
+                };
+                
+                await jobSystem.addApplication(application);
+                showNotification('تم تقديم طلبك بنجاح! سنتواصل معك قريباً.', 'success');
+                closeModal();
+            } catch (error) {
+                showNotification('حدث خطأ أثناء تقديم الطلب. يرجى المحاولة مرة أخرى.', 'error');
+                console.error('Application error:', error);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🚀 إرسال التقديم عالمياً';
+            }
+        });
+
+        // Simulate online users count
+        setInterval(() => {
+            const onlineUsers = Math.floor(Math.random() * 10) + 1;
+            document.getElementById('onlineUsers').textContent = onlineUsers;
+        }, 5000);
+
+        // Show welcome message
+        setTimeout(() => {
+            showNotification('مرحباً بك في WorkWise - منصة التوظيف العالمية!', 'success');
+        }, 1000);
+
+        // Check for service worker support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                    console.log('ServiceWorker registration successful');
+                }).catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
