@@ -51,7 +51,6 @@
             z-index: 1;
         }
 
-        /* Header Styles */
         .header {
             background: rgba(255, 255, 255, 0.97);
             backdrop-filter: blur(10px);
@@ -85,7 +84,6 @@
             font-size: 24px;
         }
 
-        /* Navigation */
         .nav-buttons {
             display: flex;
             gap: 15px;
@@ -144,7 +142,6 @@
             color: var(--dark-color);
         }
 
-        /* Sections */
         .section {
             background: rgba(255, 255, 255, 0.97);
             backdrop-filter: blur(10px);
@@ -166,7 +163,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Job Cards */
         .job-card {
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
             border: 1px solid #dee2e6;
@@ -221,7 +217,6 @@
             color: var(--primary-color);
         }
 
-        /* Forms */
         .form-group {
             margin-bottom: 20px;
         }
@@ -249,7 +244,6 @@
             box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
         }
 
-        /* Record Controls */
         .record-controls {
             display: flex;
             gap: 10px;
@@ -281,7 +275,6 @@
             cursor: not-allowed;
         }
 
-        /* Admin Panel */
         .admin-panel {
             background: rgba(255, 255, 255, 0.97);
             backdrop-filter: blur(10px);
@@ -322,14 +315,12 @@
             flex-wrap: wrap;
         }
 
-        /* Login Form */
         .login-form {
             max-width: 400px;
             margin: 0 auto;
             text-align: center;
         }
 
-        /* Modal */
         .modal {
             position: fixed;
             top: 0;
@@ -380,13 +371,11 @@
             color: var(--danger-color);
         }
 
-        /* Audio Player */
         .audio-player {
             width: 100%;
             margin-top: 10px;
         }
 
-        /* Status Badges */
         .status-badge {
             display: inline-block;
             padding: 4px 12px;
@@ -411,7 +400,6 @@
             color: #721c24;
         }
 
-        /* Notifications */
         .notification {
             position: fixed;
             top: 20px;
@@ -441,7 +429,6 @@
             to { transform: translateX(0); opacity: 1; }
         }
 
-        /* Loading */
         .loading {
             display: inline-block;
             width: 20px;
@@ -458,17 +445,13 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Connection Status */
         .connection-status {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
             padding: 8px 15px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: bold;
-            z-index: 1100;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
 
         .connection-status.online {
@@ -481,7 +464,6 @@
             color: #721c24;
         }
 
-        /* Stats Bar */
         .stats-bar {
             display: flex;
             justify-content: space-around;
@@ -507,7 +489,6 @@
             display: block;
         }
 
-        /* Filters */
         .filters {
             display: flex;
             gap: 15px;
@@ -520,7 +501,6 @@
             min-width: 200px;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .nav-buttons {
                 flex-direction: column;
@@ -558,11 +538,6 @@
     <!-- Notifications -->
     <div id="notification" class="notification"></div>
     
-    <!-- Connection Status -->
-    <div id="connectionStatus" class="connection-status offline">
-        غير متصل بالخادم
-    </div>
-    
     <div class="container">
         <header class="header">
             <div class="logo">
@@ -576,26 +551,6 @@
                 <button class="btn btn-secondary" onclick="showSection('login')">لوحة الموظفين</button>
             </div>
         </header>
-
-        <!-- Stats -->
-        <div class="stats-bar">
-            <div class="stat-item">
-                <span class="stat-number" id="totalApplications">0</span>
-                <span>إجمالي الطلبات</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" id="pendingApplications">0</span>
-                <span>قيد المراجعة</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" id="approvedApplications">0</span>
-                <span>مقبول</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" id="onlineUsers">1</span>
-                <span>متصل الآن</span>
-            </div>
-        </div>
 
         <!-- Jobs Section -->
         <div id="jobs" class="section active">
@@ -709,12 +664,8 @@
         <!-- Login Section -->
         <div id="login" class="section">
             <div class="login-form">
-                <h2 style="color: var(--primary-color); margin-bottom: 30px;">🔐 لوحة الموظفين العالمية</h2>
-                <p style="color: #666; margin-bottom: 20px;">ادخل للوصول إلى جميع طلبات التقديم من حول العالم</p>
-                <div class="form-group">
-                    <label>اسم المستخدم:</label>
-                    <input type="text" id="adminUsername" class="form-control" placeholder="أدخل اسم المستخدم">
-                </div>
+                <h2 style="color: var(--primary-color); margin-bottom: 30px;">🔐 لوحة الموظفين</h2>
+                <p style="color: #666; margin-bottom: 20px;">أدخل كلمة المرور للوصول إلى لوحة التحكم</p>
                 <div class="form-group">
                     <label>كلمة المرور:</label>
                     <input type="password" id="adminPassword" class="form-control" placeholder="أدخل كلمة المرور">
@@ -727,10 +678,31 @@
         <div id="admin" class="section">
             <div class="admin-panel">
                 <div class="admin-header">
-                    <h2 style="color: var(--primary-color);">🌍 لوحة إدارة المتقدمين العالمية</h2>
+                    <h2 style="color: var(--primary-color);">🌍 لوحة إدارة المتقدمين</h2>
                     <div>
-                        <button class="btn btn-primary" onclick="refreshData()" style="margin-left: 10px;">🔄 تحديث فوري</button>
+                        <button class="btn btn-primary" onclick="refreshData()" style="margin-left: 10px;">🔄 تحديث</button>
                         <button class="btn btn-secondary" onclick="logout()">🚪 خروج</button>
+                    </div>
+                </div>
+                
+                <!-- Connection Status -->
+                <div id="connectionStatus" class="connection-status offline">
+                    جاري التحقق من حالة الخادم...
+                </div>
+                
+                <!-- Stats -->
+                <div class="stats-bar">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalApplications">0</span>
+                        <span>إجمالي الطلبات</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="pendingApplications">0</span>
+                        <span>قيد المراجعة</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="approvedApplications">0</span>
+                        <span>مقبول</span>
                     </div>
                 </div>
                 
@@ -759,7 +731,7 @@
                 <div id="applicantsList">
                     <div style="text-align: center; padding: 40px;">
                         <div class="loading"></div>
-                        <p>جاري تحميل البيانات من الخادم العالمي...</p>
+                        <p>جاري تحميل البيانات...</p>
                     </div>
                 </div>
             </div>
@@ -832,7 +804,7 @@
                 </div>
                 
                 <div style="display: flex; gap: 10px; justify-content: center; margin-top: 30px;">
-                    <button type="submit" class="btn btn-primary" id="submitBtn">🚀 إرسال التقديم عالمياً</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">🚀 إرسال التقديم</button>
                     <button type="button" class="btn btn-secondary" onclick="closeModal()">❌ إلغاء</button>
                 </div>
             </form>
@@ -843,7 +815,7 @@
     <div id="applicantModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="applicantModalTitle" class="modal-title">تفاصيل المتقدم</h3>
+                <h3 class="modal-title">تفاصيل المتقدم</h3>
                 <button class="close-modal" onclick="closeApplicantModal()">×</button>
             </div>
             <div id="applicantModalContent">
@@ -874,21 +846,36 @@
         let storage;
         let isFirebaseConnected = false;
 
-        try {
-            const app = firebase.initializeApp(firebaseConfig);
-            database = firebase.database();
-            storage = firebase.storage();
-            isFirebaseConnected = true;
-            updateConnectionStatus(true);
-            
-            // Listen for connection status
-            database.ref('.info/connected').on('value', (snapshot) => {
-                updateConnectionStatus(snapshot.val() === true);
-            });
-        } catch (error) {
-            console.warn('فشل الاتصال بـ Firebase، سيتم استخدام النظام المحلي:', error);
-            isFirebaseConnected = false;
-            updateConnectionStatus(false);
+        function initFirebase() {
+            try {
+                const app = firebase.initializeApp(firebaseConfig);
+                database = firebase.database();
+                storage = firebase.storage();
+                isFirebaseConnected = true;
+                
+                // Test connection
+                database.ref('.info/connected').on('value', (snapshot) => {
+                    updateConnectionStatus(snapshot.val() === true);
+                });
+                
+                return true;
+            } catch (error) {
+                console.error('فشل الاتصال بـ Firebase:', error);
+                isFirebaseConnected = false;
+                updateConnectionStatus(false);
+                return false;
+            }
+        }
+
+        function updateConnectionStatus(connected) {
+            const statusElement = document.getElementById('connectionStatus');
+            if (connected) {
+                statusElement.textContent = '✓ متصل بالخادم بنجاح';
+                statusElement.className = 'connection-status online';
+            } else {
+                statusElement.textContent = '✗ غير متصل بالخادم - يتم العمل بالنظام المحلي';
+                statusElement.className = 'connection-status offline';
+            }
         }
 
         // Global Job Application System
@@ -896,12 +883,12 @@
             constructor() {
                 this.applicants = [];
                 this.listeners = [];
-                this.localStorageKey = 'workwise_global_applications';
+                this.localStorageKey = 'workwise_applications';
                 this.init();
             }
 
             async init() {
-                if (isFirebaseConnected) {
+                if (initFirebase()) {
                     // Listen for real-time updates from Firebase
                     database.ref('applications').on('value', (snapshot) => {
                         this.applicants = snapshot.val() || [];
@@ -910,10 +897,14 @@
                     });
                 } else {
                     // Fallback to localStorage when offline
-                    const savedData = localStorage.getItem(this.localStorageKey);
-                    this.applicants = savedData ? JSON.parse(savedData) : [];
-                    this.updateStats();
+                    this.loadFromLocal();
                 }
+            }
+
+            loadFromLocal() {
+                const savedData = localStorage.getItem(this.localStorageKey);
+                this.applicants = savedData ? JSON.parse(savedData) : [];
+                this.updateStats();
             }
 
             async addApplication(application) {
@@ -937,17 +928,20 @@
                         }
 
                         await database.ref('applications').set(this.applicants);
-                        this.notifyListeners();
                     } catch (error) {
-                        console.error('Error uploading to Firebase:', error);
-                        localStorage.setItem(this.localStorageKey, JSON.stringify(this.applicants));
+                        console.error('Error saving to Firebase:', error);
+                        this.saveToLocal();
                     }
                 } else {
-                    localStorage.setItem(this.localStorageKey, JSON.stringify(this.applicants));
+                    this.saveToLocal();
                 }
 
                 this.updateStats();
                 return newApplication;
+            }
+
+            saveToLocal() {
+                localStorage.setItem(this.localStorageKey, JSON.stringify(this.applicants));
             }
 
             updateApplicationStatus(id, status) {
@@ -959,10 +953,10 @@
                         database.ref('applications').set(this.applicants)
                             .then(() => this.notifyListeners())
                             .catch(() => {
-                                localStorage.setItem(this.localStorageKey, JSON.stringify(this.applicants));
+                                this.saveToLocal();
                             });
                     } else {
-                        localStorage.setItem(this.localStorageKey, JSON.stringify(this.applicants));
+                        this.saveToLocal();
                     }
 
                     this.updateStats();
@@ -1098,27 +1092,24 @@
         }
 
         function adminLogin() {
-            const username = document.getElementById('adminUsername').value;
             const password = document.getElementById('adminPassword').value;
-            
-            if (username === 'admin' && password === 'WorkWiseAdmin2024') {
+            if (password === 'workwise12345') {
                 showSection('admin');
                 showNotification('تم تسجيل الدخول بنجاح!', 'success');
             } else {
-                showNotification('بيانات الدخول غير صحيحة!', 'error');
+                showNotification('كلمة المرور غير صحيحة!', 'error');
             }
         }
 
         function logout() {
             showSection('jobs');
-            document.getElementById('adminUsername').value = '';
             document.getElementById('adminPassword').value = '';
             showNotification('تم تسجيل الخروج بنجاح', 'success');
         }
 
         function loadApplicants() {
             const applicantsList = document.getElementById('applicantsList');
-            applicantsList.innerHTML = '<div style="text-align: center; padding: 40px;"><div class="loading"></div><p>جاري تحميل البيانات من الخادم العالمي...</p></div>';
+            applicantsList.innerHTML = '<div style="text-align: center; padding: 40px;"><div class="loading"></div><p>جاري تحميل البيانات...</p></div>';
             
             jobSystem.addListener(applicants => {
                 renderApplicants(applicants);
@@ -1236,17 +1227,6 @@
             }, 5000);
         }
 
-        function updateConnectionStatus(isConnected) {
-            const statusElement = document.getElementById('connectionStatus');
-            if (isConnected) {
-                statusElement.textContent = 'متصل بالخادم العالمي';
-                statusElement.className = 'connection-status online';
-            } else {
-                statusElement.textContent = 'غير متصل بالخادم - العمل بالنظام المحلي';
-                statusElement.className = 'connection-status offline';
-            }
-        }
-
         // Handle form submission
         document.getElementById('applicationForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -1287,247 +1267,14 @@
                 console.error('Application error:', error);
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.textContent = '🚀 إرسال التقديم عالمياً';
+                submitBtn.textContent = '🚀 إرسال التقديم';
             }
         });
-
-        // Simulate online users count
-        setInterval(() => {
-            const onlineUsers = Math.floor(Math.random() * 10) + 1;
-            document.getElementById('onlineUsers').textContent = onlineUsers;
-        }, 5000);
 
         // Show welcome message
         setTimeout(() => {
             showNotification('مرحباً بك في WorkWise - منصة التوظيف العالمية!', 'success');
         }, 1000);
-
-        // Check for service worker support
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').then(registration => {
-                    console.log('ServiceWorker registration successful');
-                }).catch(err => {
-                    console.log('ServiceWorker registration failed: ', err);
-                });
-            });
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WorkWise - منصة التوظيف العالمية</title>
-    <style>
-        /* ... (كل أنماط CSS السابقة تبقى كما هي) ... */
-    </style>
-</head>
-<body>
-    <div class="logo-bg"></div>
-    
-    <!-- إشعارات -->
-    <div id="notification" class="notification"></div>
-    
-    <div class="container">
-        <header class="header">
-            <div class="logo">
-                <div class="logo-icon">W</div>
-                WorkWise
-            </div>
-            <p style="color: #666; font-size: 1.1rem;">منصة التوظيف العالمية - اتصل بأفضل الفرص حول العالم</p>
-            
-            <div class="nav-buttons">
-                <button class="btn btn-primary" onclick="showSection('jobs')">الوظائف المتاحة</button>
-                <button class="btn btn-secondary" onclick="showSection('login')">لوحة الموظفين</button>
-            </div>
-        </header>
-
-        <!-- قسم الوظائف -->
-        <div id="jobs" class="section active">
-            <!-- ... (نفس محتوى الوظائف السابق) ... -->
-        </div>
-
-        <!-- نموذج تسجيل الدخول -->
-        <div id="login" class="section">
-            <div class="login-form">
-                <h2 style="color: #2a5298; margin-bottom: 30px;">🔐 لوحة الموظفين</h2>
-                <p style="color: #666; margin-bottom: 20px;">أدخل كلمة المرور للوصول إلى لوحة التحكم</p>
-                <div class="form-group">
-                    <label>كلمة المرور:</label>
-                    <input type="password" id="adminPassword" placeholder="أدخل كلمة المرور">
-                </div>
-                <button class="btn btn-primary" onclick="adminLogin()">🚀 دخول</button>
-            </div>
-        </div>
-
-        <!-- لوحة الإدارة -->
-        <div id="admin" class="section">
-            <div class="admin-panel">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-                    <h2 style="color: #2a5298;">🌍 لوحة إدارة المتقدمين</h2>
-                    <div>
-                        <button class="btn btn-primary" onclick="refreshData()" style="margin-left: 10px;">🔄 تحديث</button>
-                        <button class="btn btn-secondary" onclick="logout()">🚪 خروج</button>
-                    </div>
-                </div>
-                
-                <!-- حالة الاتصال -->
-                <div id="connectionStatus" class="connection-status offline" style="position: static; margin-bottom: 20px;">
-                    جاري التحقق من حالة الخادم...
-                </div>
-                
-                <!-- إحصائيات -->
-                <div class="stats-bar" style="margin-bottom: 20px;">
-                    <div class="stat-item">
-                        <span class="stat-number" id="totalApplications">0</span>
-                        <span>إجمالي الطلبات</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" id="pendingApplications">0</span>
-                        <span>قيد المراجعة</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number" id="approvedApplications">0</span>
-                        <span>مقبول</span>
-                    </div>
-                </div>
-                
-                <div id="applicantsList">
-                    <div style="text-align: center; padding: 40px;">
-                        <div class="loading"></div>
-                        <p>جاري تحميل البيانات...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ... (بقية العناصر مثل modals تبقى كما هي) ... -->
-
-    <script>
-        // إعداد Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyBrXm8nBfH3gNJ7KH8RLx6X5K5xZq8QfGw",
-            authDomain: "workwise-global-jobs.firebaseapp.com",
-            databaseURL: "https://workwise-global-jobs-default-rtdb.firebaseio.com/",
-            projectId: "workwise-global-jobs",
-            storageBucket: "workwise-global-jobs.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abc123def456"
-        };
-
-        // تهيئة Firebase
-        let database;
-        let isFirebaseConnected = false;
-
-        function initFirebase() {
-            try {
-                firebase.initializeApp(firebaseConfig);
-                database = firebase.database();
-                isFirebaseConnected = true;
-                
-                // اختبار الاتصال
-                database.ref('.info/connected').on('value', (snapshot) => {
-                    updateConnectionStatus(snapshot.val() === true);
-                });
-                
-                return true;
-            } catch (error) {
-                console.error('فشل الاتصال بـ Firebase:', error);
-                isFirebaseConnected = false;
-                updateConnectionStatus(false);
-                return false;
-            }
-        }
-
-        function updateConnectionStatus(connected) {
-            const statusElement = document.getElementById('connectionStatus');
-            if (connected) {
-                statusElement.textContent = '✓ متصل بالخادم بنجاح';
-                statusElement.className = 'connection-status online';
-            } else {
-                statusElement.textContent = '✗ غير متصل بالخادم - يتم العمل بالنظام المحلي';
-                statusElement.className = 'connection-status offline';
-            }
-        }
-
-        // نظام إدارة البيانات العالمي
-        class GlobalJobSystem {
-            constructor() {
-                this.applicants = [];
-                this.listeners = [];
-                this.localStorageKey = 'workwise_applications';
-                this.init();
-            }
-
-            async init() {
-                if (initFirebase()) {
-                    // الاستماع للتغييرات في الوقت الفعلي من Firebase
-                    database.ref('applications').on('value', (snapshot) => {
-                        this.applicants = snapshot.val() || [];
-                        this.notifyListeners();
-                        this.updateStats();
-                    });
-                } else {
-                    // استخدام localStorage كبديل عند عدم الاتصال
-                    this.loadFromLocal();
-                }
-            }
-
-            loadFromLocal() {
-                const savedData = localStorage.getItem(this.localStorageKey);
-                this.applicants = savedData ? JSON.parse(savedData) : [];
-                this.updateStats();
-            }
-
-            async addApplication(application) {
-                const newApplication = {
-                    ...application,
-                    id: Date.now().toString(),
-                    status: 'pending',
-                    timestamp: new Date().toISOString()
-                };
-
-                this.applicants.unshift(newApplication);
-                
-                if (isFirebaseConnected) {
-                    try {
-                        await database.ref('applications').set(this.applicants);
-                    } catch (error) {
-                        this.saveToLocal();
-                    }
-                } else {
-                    this.saveToLocal();
-                }
-
-                this.updateStats();
-                return newApplication;
-            }
-
-            saveToLocal() {
-                localStorage.setItem(this.localStorageKey, JSON.stringify(this.applicants));
-            }
-
-            // ... (بقية الدوال تبقى كما هي) ...
-        }
-
-        // تهيئة النظام العالمي
-        const jobSystem = new GlobalJobSystem();
-
-        function adminLogin() {
-            const password = document.getElementById('adminPassword').value;
-            if (password === 'workwise12345') {
-                showSection('admin');
-                showNotification('تم تسجيل الدخول بنجاح!', 'success');
-            } else {
-                showNotification('كلمة المرور غير صحيحة!', 'error');
-            }
-        }
-
-        // ... (بقية الدوال تبقى كما هي) ...
     </script>
 </body>
 </html>
